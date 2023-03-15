@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+
+    position: relative;
+    background: radial-gradient(104.49% 104.49% at 50% 50%, #000000 0%, rgba(55, 55, 55, 0.432292) 100%);
+}
+
+@import url('https://fonts.googleapis.com/css?family=Inter');
+h1 {
+    position: absolute;
+    width: 56.7%;
+    height: 22.56%;
+    left: 31.8%;
+    top: 37.8%;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 6.9375em;
+    line-height: 134px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.logo {
+    position: absolute;
+    width: 29.5%;
+    height: 39.25%;
+    left: 6.53%;
+    top: 29.5%;
+}
+
+.access-button {
+    box-sizing: border-box;
+    position: absolute;
+    border: 3px solid #38B138;
+    border-radius: 14px;
+    width: 10.4%;
+    height: 6.45%;
+    background-color: transparent;
+    top: 3.9%;
+    color: white;
+    font-weight: bold;
+    
+}
+
+.access-button:hover{
+    cursor: pointer;
+}
+
+#signup-button {
+    left: 86.8%;
+}
+
+#login-button {
+    left: 74.9%;
+}
+
+#slogan {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 13.67%;
+    /* left: 12.43%; */
+    top: 79%;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 2.125em;
+    line-height: 4%;
+    align-items: center;
+    text-align: center;
+    
+    color: #FFFFFF;
+
+}
