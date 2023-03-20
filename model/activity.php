@@ -21,7 +21,7 @@ class Activity{
     }
     */
 
-    public static function loadActivities(){
+    public static function getActivities(){
             $conn = dbConnect();
 
             $result = $conn->query("SELECT * FROM activities");

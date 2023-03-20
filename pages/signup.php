@@ -12,7 +12,7 @@
 
 <body>
     <img class="logo" src="../assets/images/logo.svg" alt="logo">
-    <form id="regForm" action="/action_page.php">
+    <form id="regForm" name="regForm" action="./homepage.php">
         <h1>Register</h1>
         <!-- One "tab" for each step in the form: -->
         <div class="tab">
@@ -22,14 +22,16 @@
                 <p>Last name</p>
                 <input placeholder="Last name..." oninput="this.className = ''" name="lname">
             </div>
+            <div class="row">
+                <p>Birth date</p>
+                <input type="date" oninput="this.className = ''" name="bdate">
+                <p>Fiscal code</p>
+                <input type="text" placeholder="Fiscal code..." oninput="this.className = ''" name="fcode">
+                <p>City of residence</p>
+                <!--per ora qui dopo su un altra schermata-->
+                <input placeholder="Address..." oninput="this.className = ''" name="address">
+            </div>
 
-            <p>Birth date</p>
-            <input type="date" oninput="this.className = ''" name="bdate">
-            <p>Fiscal code</p>
-            <input type="date" oninput="this.className = ''" name="bdate">
-            <p>Address</p>
-            <!--per ora qui dopo su un altra schermata-->
-            <input placeholder="Address..." oninput="this.className = ''" name="address">
         </div>
         <div class="tab">
             <p>Username</p>
@@ -48,11 +50,19 @@
         <div class="tab">
             Choose your favourite sports
             <p>
-                <label><input type="checkbox" name="sport" value="football"> Football</label>
-                <label><input type="checkbox" name="sport" value="basketball"> Basketball</label>
-                <label><input type="checkbox" name="sport" value="tennis"> Tennis</label>
-                <label><input type="checkbox" name="sport" value="golf"> Golf</label>
-                <!-- Aggiungi altri sport qui -->
+            <div id="" style="overflow-y: scroll; height:400px;">
+                <?php
+                require_once("../model/activity.php");
+
+                $activities = Activity::getActivities();
+                $ris = "";
+                for ($i = 0; $i < count($activities); $i++) {
+                    $name = $activities[$i]->name;
+                    $ris = $ris . "<label><input type='checkbox' name='sport' value='" . $name . "'>" . $name . "</label>";
+                }
+                echo $ris;
+                ?>
+            </div>
             </p>
         </div>
         <div style="overflow:auto;">
