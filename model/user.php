@@ -5,24 +5,17 @@ require_once(__DIR__ . "/utils.php");
 class User
 {
     var $id;
-    var $name;
-    var $surname;
-    var $birthDate;
-    var $gender;
-    var $phone;
-    var $townId;
-    var $email;
+    var $username;
     var $password;
-    var $taxId;
-
+    var $email;
 
     public function save()
     {
         if ($this->id == null) {
             $conn = dbConnect();
 
-            $query = "INSERT INTO users(name, surname, birthDate, gender, phone, townId, email, password, taxId) " .
-                "VALUES ('$this->name', '$this->surname', '$this->birthDate', '$this->gender', '$this->phone', '$this->townId', '$this->email', '$this->password', '$this->taxId') ";
+            $query = "INSERT INTO users(username, email, password) " .
+                "VALUES ('$this->username', '$this->email', '$this->password') ";
 
             $result = $conn->query($query);
 
@@ -40,14 +33,8 @@ class User
             if (password_verify($password, $row["password"])) {
                 $res = new User();
                 $res->id = $row["id"];
-                $res->name = $row["name"];
-                $res->surname = $row["surname"];
-                $res->birthDate = $row["birthDate"];
-                $res->gender = $row["gender"];
-                $res->phone = $row["phone"];
-                $res->townId = $row["townId"];
-                $res->taxId = $row["taxId"];
-                $res->password= $row["password"];
+                $res->username = $row["username"];
+                //$res->password= $row["password"];
                 $res->email = $row["email"];
 
                 return $res;
