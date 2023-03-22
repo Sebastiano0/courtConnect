@@ -192,3 +192,47 @@ function fixStepIndicator(n) {
   //... and adds the "active" class on the current step:
   x[n].className += " active";
 }
+
+function signup() {
+  let fn = document.forms["regForm"]["fname"].value;
+  let ln = document.forms["regForm"]["lname"].value;
+  let bd = document.forms["regForm"]["bdate"].value;
+  let fc = document.forms["regForm"]["fcode"].value;
+  let aa = document.forms["regForm"]["address"].value;
+  let ph = document.forms["regForm"]["phone"].value;
+  let em = document.forms["regForm"]["email"].value;
+  let pw = document.forms["regForm"]["password"].value;
+
+  if (pw != cpw) {
+      alert("Le due password non corrispondono");
+  } else {
+      let formData = new FormData();
+      formData.append("name", fn);
+      formData.append("surname", ln);
+      formData.append("birthDate", bd);
+      formData.append("gender", fc);
+      formData.append("townId", aa);
+      formData.append("email", em);
+      formData.append("phone", ph);
+      formData.append("password", pw);
+      formData.append("taxId", fc);
+
+      let xhttp = new XMLHttpRequest();
+      xhttp.open("POST", "../api/insert_user.php");
+
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+              if (this.responseText == "1"){
+                  alert("L'utente è stato inserito correttamente");
+                  window.location.href = '../pages/home.php';
+              } else {
+                  alert(this.responseText);
+              }
+          }
+      };
+
+      xhttp.send(formData);
+
+  }
+
+}

@@ -18,7 +18,7 @@
         <div class="tab">
             <div class="row">
                 <p>First name</p>
-                <input placeholder="First name..." oninput="this.className = ''" name="fname">
+                <input placeholder="First name..." oninput="this.className = ''" name="fname" id="name">
                 <p>Last name</p>
                 <input placeholder="Last name..." oninput="this.className = ''" name="lname">
             </div>
@@ -34,8 +34,6 @@
 
         </div>
         <div class="tab">
-            <p>Username</p>
-            <input placeholder="Username..." oninput="this.className = ''" name="uname">
             <p>Email</p>
             <input placeholder="E-mail..." type="email" oninput="this.className = ''" name="email">
             <p>Confirm email</p>
@@ -54,7 +52,7 @@
                 <?php
                 require_once("../model/activity.php");
 
-                $activities = Activity::getActivities();
+                $activities = Activity::loadActivities();
                 $ris = "";
                 for ($i = 0; $i < count($activities); $i++) {
                     $name = $activities[$i]->name;
