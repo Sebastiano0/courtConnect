@@ -2,10 +2,10 @@
 
 function dbConnect()
 {
-    $servername = "localhost";
+    $servername = "129.152.22.2";
     $username = "root";
-    $password = "";
-    $database = "musicdb";
+    $password = "LampadarioBlu23";
+    $database = "courtconnect";
     $conn = new mysqli($servername, $username, $password, $database);
 
     if ($conn->connect_error) {

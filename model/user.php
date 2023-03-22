@@ -5,17 +5,24 @@ require_once(__DIR__ . "/utils.php");
 class User
 {
     var $id;
-    var $username;
-    var $password;
+    var $name;
+    var $surname;
+    var $birthDate;
+    var $gender;
+    var $phone;
+    var $townId;
     var $email;
+    var $password;
+    var $taxId;
+
 
     public function save()
     {
         if ($this->id == null) {
             $conn = dbConnect();
 
-            $query = "INSERT INTO users(username, email, password) " .
-                "VALUES ('$this->username', '$this->email', '$this->password') ";
+            $query = "INSERT INTO user(name, surname, birthDate, gender, phone, town_id, email, password, tax_id) " .
+                "VALUES ('$this->name', '$this->surname', '$this->birthDate', '$this->gender', '$this->phone', '$this->townId', '$this->email', '$this->password', '$this->taxId') ";
 
             $result = $conn->query($query);
 
@@ -27,14 +34,20 @@ class User
     {
         $conn = dbConnect();
 
-        $result = $conn->query("SELECT * FROM users WHERE email='$email' AND password='$password'");
+        $result = $conn->query("SELECT * FROM user WHERE email='$email' AND password='$password'");
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             if (password_verify($password, $row["password"])) {
                 $res = new User();
                 $res->id = $row["id"];
-                $res->username = $row["username"];
-                //$res->password= $row["password"];
+                $res->name = $row["name"];
+                $res->surname = $row["surname"];
+                $res->birthDate = $row["birthDate"];
+                $res->gender = $row["gender"];
+                $res->phone = $row["phone"];
+                $res->townId = $row["townId"];
+                $res->taxId = $row["taxId"];
+                $res->password= $row["password"];
                 $res->email = $row["email"];
 
                 return $res;
@@ -46,3 +59,5 @@ class User
         }
     }
 }
+
+?>
