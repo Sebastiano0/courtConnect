@@ -47,140 +47,20 @@ function validateForm() {
   x = document.getElementsByClassName("tab");
   y = x[currentTab].getElementsByTagName("input");
   // A loop that checks every input field in the current tab:
-
   for (i = 0; i < y.length; i++) {
-    y[i].classList.remove("invalid");
-    var error = y[i].parentNode.querySelector(".invalid-feedback");
-    if (error) {
-      error.parentNode.removeChild(error);
-    }
-
-  
     // If a field is empty...
     if (y[i].value == "") {
       // add an "invalid" class to the field:
       y[i].className += " invalid";
       // and set the current valid status to false
       valid = false;
-    } 
-  }
-  switch (currentTab) {
-    case 0:
-      let fname = document.forms["regForm"]["fname"].value;
-      if (!/^[A-Za-z]+$/.test(fname)) {
-        document.forms["regForm"]["fname"].className += " invalid";
-        var error = document.createElement("span");
-        error.className = "invalid-feedback";
-        error.innerHTML = "This field is required.";
-        document.forms["regForm"]["fname"].parentNode.appendChild(error);
-        valid = false;
-
-      }
-      let lname = document.forms["regForm"]["lname"].value;
-      if (!/^[A-Za-z]+$/.test(lname)) {
-        document.forms["regForm"]["lname"].className += " invalid";
-        var error = document.createElement("span");
-        error.className = "invalid-feedback";
-        error.innerHTML = "This field is required.";
-        document.forms["regForm"]["lname"].parentNode.appendChild(error);
-        valid = false;
-      }
-      let bdate = document.forms["regForm"]["bdate"].value;
-      var date = new Date(bdate);
-      if (date.getFullYear() < 1900 || date.getFullYear() > 2010) {
-        document.forms["regForm"]["bdate"].className += " invalid";
-        var error = document.createElement("span");
-        error.className = "invalid-feedback";
-        error.innerHTML = "You're out of date";
-        document.forms["regForm"]["bdate"].parentNode.appendChild(error);
-        valid = false;
-      }
-      let fcode = document.forms["regForm"]["fcode"].value;
-      if (!/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/.test(fcode)) {
-        document.forms["regForm"]["fcode"].className += " invalid";
-        var error = document.createElement("span");
-        error.className = "invalid-feedback";
-        error.innerHTML = "Italian fiscal code required.";
-        document.forms["regForm"]["fcode"].parentNode.appendChild(error);
-        valid = false;
-      }
-      break;
-    case 1:
-      let email = document.forms["regForm"]["email"].value;
-      if (!/^\S+@\S+\.\S+$/.test(email)) {
-        document.forms["regForm"]["email"].className += " invalid";
-        var error = document.createElement("span");
-        error.className = "invalid-feedback";
-        error.innerHTML = "Invalid email.";
-        document.forms["regForm"]["email"].parentNode.appendChild(error);
-        valid = false;
-      }
-      let confirm_email = document.forms["regForm"]["c-email"].value;
-      if (confirm_email !== email) {
-        document.forms["regForm"]["c-email"].className += " invalid";
-        var error = document.createElement("span");
-        error.className = "invalid-feedback";
-        error.innerHTML = "Emails doesn't match.";
-        document.forms["regForm"]["c-email"].parentNode.appendChild(error);
-        valid = false;
-      }
-      let password = document.forms["regForm"]["pword"].value;
-      if (password.length < 8) {
-        document.forms["regForm"]["pword"].className += " invalid";
-        var error = document.createElement("span");
-        error.className = "invalid-feedback";
-        error.innerHTML = "Password lenght must be at least 8!";
-        document.forms["regForm"]["pword"].parentNode.appendChild(error);
-        valid = false;
-      }
-      let confirm_password = document.forms["regForm"]["c-pword"].value;
-      if (confirm_password !== password) {
-        document.forms["regForm"]["c-pword"].className += " invalid";
-        var error = document.createElement("span");
-        error.className = "invalid-feedback";
-        error.innerHTML = "Password doesn't match.";
-        document.forms["regForm"]["c-pword"].parentNode.appendChild(error);
-        valid = false;
-      }
-      break;
-    case 2:
-      let address = document.forms["regForm"]["address"].value;
-      if (address === "") {
-        address.className += " invalid";
-        valid = false;
-      }
-      let city = document.forms["regForm"]["city"].value;
-      if (city === "") {
-        city.className += " invalid";
-        valid = false;
-      }
-      let zip = document.forms["regForm"]["zip"].value;
-      if (!/^\d{5}$/.test(zip)) {
-        zip.className += " invalid";
-        valid = false;
-      }
-      break;
+    }
   }
   // If the valid status is true, mark the step as finished and valid:
   if (valid) {
     document.getElementsByClassName("step")[currentTab].className += " finish";
   }
   return valid; // return the valid status
-}
-
-function addErrorMessage() {
-  if (y[i].value == "") {
-    y[i].className += " invalid";
-    // add an error message
-    var error = document.createElement("span");
-    error.className = "invalid-feedback";
-    error.innerHTML = "This field is required.";
-    y[i].parentNode.appendChild(error);
-    valid = false;
-  } else {
-    //...
-  }
-
 }
 
 function fixStepIndicator(n) {
