@@ -34,7 +34,7 @@ class User
     {
         $conn = dbConnect();
 
-        $result = $conn->query("SELECT * FROM user WHERE email='$email' AND password='$password'");
+        $result = $conn->query("SELECT * FROM user WHERE email='$email'");
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             if (password_verify($password, $row["password"])) {
@@ -42,11 +42,11 @@ class User
                 $res->id = $row["id"];
                 $res->name = $row["name"];
                 $res->surname = $row["surname"];
-                $res->birthDate = $row["birthDate"];
+                $res->birthDate = $row["birthdate"];
                 $res->gender = $row["gender"];
                 $res->phone = $row["phone"];
-                $res->townId = $row["townId"];
-                $res->taxId = $row["taxId"];
+                $res->townId = $row["town_id"];
+                $res->taxId = $row["tax_id"];
                 $res->password= $row["password"];
                 $res->email = $row["email"];
 

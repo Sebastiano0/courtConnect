@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!array_key_exists("email", $_SESSION)) {
+    header('Location: ' . '../index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +15,6 @@
 </head>
 <body>
     <img class="logo" src="../assets/images/logo.svg" alt="logo">
-    <h1 id="title">HOME</h1>
+    <button class="access-button" id="signup-button" onclick="window.location.href = '../index.php'">Logout</button>
 </body>
 </html>

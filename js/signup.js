@@ -6,10 +6,15 @@ function showTab(n) {
   var x = document.getElementsByClassName("tab");
   x[n].style.display = "block";
   //... and fix the Previous/Next buttons:
-  if (n == 0) {
-    document.getElementById("prevBtn").style.display = "none";
-  } else {
-    document.getElementById("prevBtn").style.display = "inline";
+  
+  try {// se sono nel signup
+    if (n == 0) {
+      document.getElementById("prevBtn").style.display = "none";
+    } else {
+      document.getElementById("prevBtn").style.display = "inline";
+    }
+  } catch (error) {
+    
   }
   if (n == (x.length - 1)) {
     document.getElementById("nextBtn").innerHTML = "Submit";
@@ -207,6 +212,33 @@ function signup() {
                   alert("L'utente è stato inserito correttamente");
                   window.location.href = '../pages/home.php';
               } else {
+                  alert(this.responseText);
+              }
+          }
+      };
+
+      xhttp.send(formData);
+
+}
+
+function login() {
+  let em = document.forms["regForm"]["email"].value;
+  let pw = document.forms["regForm"]["pword"].value;
+
+      let formData = new FormData();
+      formData.append("email", em);
+      formData.append("password", pw);
+
+      let xhttp = new XMLHttpRequest();
+      xhttp.open("POST", "../api/login_user.php");
+
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+              if (this.responseText == "1"){
+                  alert("Loggato");
+                  window.location.href = '../pages/home.php';
+              } else {
+                console.log(this.responseText);
                   alert(this.responseText);
               }
           }

@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (array_key_exists("email", $_SESSION)) {
+    header('Location: ' . './pages/home.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +19,7 @@
     <img class="logo" src="assets/images/logo.svg" alt="logo">
     <h1 id="title">Court Connect</h1>
     <!-- <div>banjo</div> -->
-    <button class="access-button" id="login-button" onclick="alert('gg')">Login</button>
+    <button class="access-button" id="login-button" onclick="window.location.href = './pages/login.php'">Login</button>
     <button class="access-button" id="signup-button" onclick="window.location.href = './pages/signup.php'">SignUp</button>
     <p  id="slogan">Connect with people and challenge them at your favourite sports.</p >
 </body>

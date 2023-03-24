@@ -6,10 +6,10 @@
 
     if($u != null){
         $_SESSION["userID"] = $u->id;
+        $_SESSION["email"] = $u->email;
         $_SESSION["name"] = $u->name;
-        $_SESSION["surname"] = $u->name;
-        echo "true";
+        echo "1";
     } else {
-        echo "false";
+        echo "some error occured";
     }
 ?>
