@@ -21,7 +21,7 @@ class User
         if ($this->id == null) {
             $conn = dbConnect();
 
-            $query = "INSERT INTO user(name, surname, birthDate, gender, phone, town_id, email, password, tax_id) " .
+            $query = "INSERT INTO users(name, surname, birthDate, gender, phone, town_id, email, password, tax_id) " .
                 "VALUES ('$this->name', '$this->surname', '$this->birthDate', '$this->gender', '$this->phone', '$this->townId', '$this->email', '$this->password', '$this->taxId') ";
 
             $result = $conn->query($query);
@@ -34,7 +34,7 @@ class User
     {
         $conn = dbConnect();
 
-        $result = $conn->query("SELECT * FROM user WHERE email='$email'");
+        $result = $conn->query("SELECT * FROM users WHERE email='$email'");
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             if (password_verify($password, $row["password"])) {

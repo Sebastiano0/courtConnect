@@ -56,7 +56,7 @@
                 $ris = "";
                 for ($i = 0; $i < count($activities); $i++) {
                     $name = $activities[$i]->name;
-                    $ris = $ris . "<label><input type='checkbox' name='sport' value='" . $name . "'>" . $name . "</label>";
+                    $ris = $ris . "<label><input type='checkbox' name='sport[]' value='" . $name . "'>" . $name . "</label>";
                 }
                 echo $ris;
                 ?>

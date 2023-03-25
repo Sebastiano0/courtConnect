@@ -8,8 +8,10 @@ html {
 	width: 100%;
 }
 
-
 body {
+	height: 100%;
+	width: 100%;
+
 	position: relative;
 	background: radial-gradient(104.49% 104.49% at 50% 50%, #000000 0%, rgba(55, 55, 55, 0.432292) 100%);
 }
@@ -20,4 +22,67 @@ body {
 	height: 61.43px;
 	left: 43.25px;
 	top: 17.78px;
+}
+
+.post {
+	position: absolute;
+	width: 60%;
+	height: 57.03%;
+	left: 20%;
+	top: 10.05%;
+	background: #666666;
+	border-radius: 35px;
+}
+
+.button {
+	box-sizing: border-box;
+	position: absolute;
+	border: 3px solid #38B138;
+	border-radius: 14px;
+	width: 10.4%;
+	height: 6.45%;
+	background-color: transparent;
+	top: 3.9%;
+	color: white;
+	font-weight: bold;
+
+}
+
+.button:hover {
+	cursor: pointer;
+	background-color: #38B138;
+}
+
+#logout-button {
+	left: 86.8%;
+}
+
+.menu {
+	position: absolute;
+	width: 17%;
+	height: 36.5%;
+	left: 1.5%;
+	top: 20.21%;
+	background: #666666;
+	border-radius: 35px;
+
+}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+
+#create-post {
+	position: absolute;
+	width: 17%;
+	height: 78px;
+	left: 1.5%;
+	top: 60%;
+	background-color: #38B138;
+	border-radius: 61px;
+	font-family: 'Inter', sans-serif;
+font-size: 34px;
+line-height: 41px;
+display: flex;
+align-items: center;
+text-align: center;
+
+color: #FFFFFF;
 }

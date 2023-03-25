@@ -210,6 +210,7 @@ function signup() {
           if (this.readyState == 4 && this.status == 200) {
               if (this.responseText == "1"){
                   alert("L'utente è stato inserito correttamente");
+                  //addPreferences();
                   window.location.href = '../pages/home.php';
               } else {
                   alert(this.responseText);
@@ -219,6 +220,14 @@ function signup() {
 
       xhttp.send(formData);
 
+}
+
+function addPreferences() {
+  var input = document.getElementsByName('sport[]');
+  var ris = [];
+            for (var i = 0; i < input.length; i++) {
+                var a  = input[i];
+            }
 }
 
 function login() {
