@@ -31,16 +31,18 @@ class User
     }
 
     public static function getLastId(){
-
-            $conn = dbConnect();
-
-            $query = "SELECT id FROM users ORDER BY id DESC LIMIT 0,1";
-
-            $result = $conn->query($query);
-
-            return $result;
+        $conn = dbConnect();
+        $query = "SELECT id FROM users ORDER BY id DESC LIMIT 0,1";
+        $result = $conn->query($query);
+    
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row["id"];
+        } else {
+            return null;
+        }
     }
-
+    
     public static function loginUser($email, $password)
     {
         $conn = dbConnect();

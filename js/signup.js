@@ -14,7 +14,7 @@ function showTab(n) {
     } else {
       document.getElementById("prevBtn").style.display = "inline";
     }
-  } catch (error) {}
+  } catch (error) { }
   if (n == x.length - 1) {
     document.getElementById("nextBtn").innerHTML = "Submit";
   } else {
@@ -206,10 +206,10 @@ function signup() {
   let xhttp = new XMLHttpRequest();
   xhttp.open("POST", "../api/insert_user.php");
 
-  xhttp.onreadystatechange = function () {
+  xhttp.onreadystatechange = async function () {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText == "1") {
-        addPreferences();
+        await addPreferences();
         alert("L'utente è stato inserito correttamente");
         window.location.href = "../pages/home.php";
       } else {
@@ -221,7 +221,7 @@ function signup() {
   xhttp.send(formData);
 }
 
-function addPreferences() {
+async function addPreferences() {
   var input = document.getElementsByName("sport[]");
   var ris = [];
   for (var i = 0; i < input.length; i++) {
@@ -229,12 +229,26 @@ function addPreferences() {
       ris.push(input[i].value);
     }
   }
-  var uId = getLastUserId();
+  try {
+    var uId = await getLastUserId();
+    console.log(`Ultimo ID utente inserito: ${uId}`);
+  } catch (error) {
+    console.error(error);
+  }
+
+    // var uId = await getLastUserId()
+    //   .then((lastUserId) => {
+    //     console.log(`Ultimo ID utente inserito: ${lastUserId}`);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+
   console.log(uId);
   for (var i = 0; i < ris.length; i++) {
     let formData = new FormData();
-    formData.append("activityId", ris[i]);
-    formData.append("userId", uId);
+    formData.append("activity", ris[i]);
+    formData.append("user", uId);
     let xhttp = new XMLHttpRequest();
     xhttp.open("POST", "../api/insert_user_preferences.php");
     xhttp.onreadystatechange = function () {
@@ -251,12 +265,20 @@ function addPreferences() {
   }
 }
 
-function getLastUserId(){
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", "../api/lastId_user.php" );
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
+async function getLastUserId() {
+  try {
+    const response = await fetch('../api/lastId_user.php');
+    const data = await response.json();
+    console.log(data);
+    return data;
+
+  } catch (error) {
+    console.error(error);
+    return -3; // oppure un valore di default diverso
+
+  }
 }
+
 
 function login() {
   let em = document.forms["regForm"]["email"].value;

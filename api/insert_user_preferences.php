@@ -3,8 +3,8 @@
 require_once(__DIR__ . "/../model/user_preferences.php");
 
 $preference = new UserPreference();
-$preference->userId = $_POST["userId"];
-$preference->activityId = $_POST["activityId"];
+$preference->user = $_POST["user"];
+$preference->activity = $_POST["activity"];
 $res = $preference->save();
 echo $res;
 
