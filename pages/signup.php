@@ -56,7 +56,8 @@
                 $ris = "";
                 for ($i = 0; $i < count($activities); $i++) {
                     $name = $activities[$i]->name;
-                    $ris = $ris . "<label><input type='checkbox' name='sport[]' value='" . $name . "'>" . $name . "</label>";
+                    $id = $activities[$i]->id;
+                    $ris = $ris . "<label><input type='checkbox' name='sport[]' value='" . $id . "'>" . $name . "</label>";
                 }
                 echo $ris;
                 ?>
@@ -76,6 +77,7 @@
             <span class="step"></span>
         </div>
     </form>
+    <!--<button type="button" id="prova" onclick="addPreferences()">Prova</button> -->
 
 </body>
 <script src="../js/signup.js"></script>

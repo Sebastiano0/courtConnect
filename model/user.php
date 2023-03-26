@@ -30,6 +30,17 @@ class User
         }
     }
 
+    public static function getLastId(){
+
+            $conn = dbConnect();
+
+            $query = "SELECT id FROM users ORDER BY id DESC LIMIT 0,1";
+
+            $result = $conn->query($query);
+
+            return $result;
+    }
+
     public static function loginUser($email, $password)
     {
         $conn = dbConnect();

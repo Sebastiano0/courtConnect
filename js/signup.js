@@ -6,23 +6,22 @@ function showTab(n) {
   var x = document.getElementsByClassName("tab");
   x[n].style.display = "block";
   //... and fix the Previous/Next buttons:
-  
-  try {// se sono nel signup
+
+  try {
+    // se sono nel signup
     if (n == 0) {
       document.getElementById("prevBtn").style.display = "none";
     } else {
       document.getElementById("prevBtn").style.display = "inline";
     }
-  } catch (error) {
-    
-  }
-  if (n == (x.length - 1)) {
+  } catch (error) {}
+  if (n == x.length - 1) {
     document.getElementById("nextBtn").innerHTML = "Submit";
   } else {
     document.getElementById("nextBtn").innerHTML = "Next";
   }
   //... and run a function that will display the correct step indicator:
-  fixStepIndicator(n)
+  fixStepIndicator(n);
 }
 
 function nextPrev(n) {
@@ -49,7 +48,10 @@ function nextPrev(n) {
 
 function validateForm() {
   // This function deals with validation of the form fields
-  var x, y, i, valid = true;
+  var x,
+    y,
+    i,
+    valid = true;
   x = document.getElementsByClassName("tab");
   y = x[currentTab].getElementsByTagName("input");
   // A loop that checks every input field in the current tab:
@@ -61,14 +63,13 @@ function validateForm() {
       error.parentNode.removeChild(error);
     }
 
-  
     // If a field is empty...
     if (y[i].value == "") {
       // add an "invalid" class to the field:
       y[i].className += " invalid";
       // and set the current valid status to false
       valid = false;
-    } 
+    }
   }
   switch (currentTab) {
     case 0:
@@ -80,7 +81,6 @@ function validateForm() {
         error.innerHTML = "This field is required.";
         document.forms["regForm"]["fname"].parentNode.appendChild(error);
         valid = false;
-
       }
       let lname = document.forms["regForm"]["lname"].value;
       if (!/^[A-Za-z]+$/.test(lname)) {
@@ -169,12 +169,12 @@ function addErrorMessage() {
   } else {
     //...
   }
-
 }
 
 function fixStepIndicator(n) {
   // This function removes the "active" class of all steps...
-  var i, x = document.getElementsByClassName("step");
+  var i,
+    x = document.getElementsByClassName("step");
   for (i = 0; i < x.length; i++) {
     x[i].className = x[i].className.replace(" active", "");
   }
@@ -192,67 +192,94 @@ function signup() {
   let em = document.forms["regForm"]["email"].value;
   let pw = document.forms["regForm"]["pword"].value;
 
-      let formData = new FormData();
-      formData.append("name", fn);
-      formData.append("surname", ln);
-      formData.append("birthDate", bd);
-      formData.append("gender", 1);
-      formData.append("townId", aa);
-      formData.append("email", em);
-      formData.append("phone", ph);
-      formData.append("password", pw);
-      formData.append("taxId", fc);
+  let formData = new FormData();
+  formData.append("name", fn);
+  formData.append("surname", ln);
+  formData.append("birthDate", bd);
+  formData.append("gender", 1);
+  formData.append("townId", aa);
+  formData.append("email", em);
+  formData.append("phone", ph);
+  formData.append("password", pw);
+  formData.append("taxId", fc);
 
-      let xhttp = new XMLHttpRequest();
-      xhttp.open("POST", "../api/insert_user.php");
+  let xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "../api/insert_user.php");
 
-      xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-              if (this.responseText == "1"){
-                  alert("L'utente è stato inserito correttamente");
-                  //addPreferences();
-                  window.location.href = '../pages/home.php';
-              } else {
-                  alert(this.responseText);
-              }
-          }
-      };
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      if (this.responseText == "1") {
+        addPreferences();
+        alert("L'utente è stato inserito correttamente");
+        window.location.href = "../pages/home.php";
+      } else {
+        alert(this.responseText);
+      }
+    }
+  };
 
-      xhttp.send(formData);
-
+  xhttp.send(formData);
 }
 
 function addPreferences() {
-  var input = document.getElementsByName('sport[]');
+  var input = document.getElementsByName("sport[]");
   var ris = [];
-            for (var i = 0; i < input.length; i++) {
-                var a  = input[i];
-            }
+  for (var i = 0; i < input.length; i++) {
+    if (input[i].checked) {
+      ris.push(input[i].value);
+    }
+  }
+  var uId = getLastUserId();
+  console.log(uId);
+  for (var i = 0; i < ris.length; i++) {
+    let formData = new FormData();
+    formData.append("activityId", ris[i]);
+    formData.append("userId", uId);
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "../api/insert_user_preferences.php");
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        if (this.responseText == "1") {
+          console.log("Inserted");
+        } else {
+          console.log(this.responseText);
+        }
+      }
+    };
+    xhttp.send(formData);
+    console.log(ris);
+  }
+}
+
+function getLastUserId(){
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", "../api/lastId_user.php" );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
 }
 
 function login() {
   let em = document.forms["regForm"]["email"].value;
   let pw = document.forms["regForm"]["pword"].value;
 
-      let formData = new FormData();
-      formData.append("email", em);
-      formData.append("password", pw);
+  let formData = new FormData();
+  formData.append("email", em);
+  formData.append("password", pw);
 
-      let xhttp = new XMLHttpRequest();
-      xhttp.open("POST", "../api/login_user.php");
+  let xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "../api/login_user.php");
 
-      xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-              if (this.responseText == "1"){
-                  alert("Loggato");
-                  window.location.href = '../pages/home.php';
-              } else {
-                console.log(this.responseText);
-                  alert(this.responseText);
-              }
-          }
-      };
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      if (this.responseText == "1") {
+        alert("Loggato");
+        window.location.href = "../pages/home.php";
+      } else {
+        console.log(this.responseText);
+        alert(this.responseText);
+      }
+    }
+  };
 
-      xhttp.send(formData);
-
+  xhttp.send(formData);
 }
