@@ -1,0 +1,17 @@
+.tab {
+    display: block;
+}
+
+button {
+	border: 3px solid #38B138;
+	border-radius: 14px;
+	background-color: transparent;
+	color: white;
+
+}
+
+button:hover {
+	cursor: pointer;
+	background-color: #38B138;
+}
+

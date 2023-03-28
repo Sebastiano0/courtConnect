@@ -210,7 +210,6 @@ function signup() {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText == "1") {
         await addPreferences();
-        alert("L'utente è stato inserito correttamente");
         window.location.href = "../pages/home.php";
       } else {
         alert(this.responseText);
@@ -294,7 +293,6 @@ function login() {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText == "1") {
-        alert("Loggato");
         window.location.href = "../pages/home.php";
       } else {
         console.log(this.responseText);
