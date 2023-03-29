@@ -77,7 +77,9 @@ body {
 
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
+
+
 
 #create-post {
 	position: absolute;
@@ -90,12 +92,18 @@ body {
 	font-family: 'Inter', sans-serif;
 	font-size: 34px;
 	line-height: 41px;
-	display: flex;
 	align-items: center;
 	text-align: center;
 
 	color: #FFFFFF;
 }
+
+#create-post:hover {
+	cursor: pointer;
+	background-color: #ffffff;
+	color: #38B138;
+}
+
 
 .requests {
 	position: absolute;
@@ -109,13 +117,37 @@ body {
 
 }
 
+.event{
+	
+	width: 50%;
+	color: white;
+	position: absolute;
+	padding: 40px;
+	box-sizing: border-box;
+	font-size: 33px;
+	font-family: 'Inter', sans-serif;
+	
+}
+
+.event-properties{
+	color: #38B138;	
+	font-size: 27px;
+}
+
+.event-property{
+	border: 2px solid #38B138;	
+	border-radius: 50px;
+	margin: 5px;
+	padding: 5px;
+}
+
 #home {
 	position: absolute;
 	width: 80%;
 	height: 33%;
 	left: 10%;
 	top: 12%;
-
+	color: #38B138;  
 }
 
 #profile{
@@ -124,6 +156,7 @@ body {
 	height: 33%;
 	left: 10%;
 	top: 42%;
+	color: white;
 }
 
 #settings{
@@ -132,6 +165,7 @@ body {
 	height: 33%;
 	left: 10%;
 	top: 72%;
+	color: white;
 }
 
 .scrollbar{
@@ -146,22 +180,20 @@ body {
 	max-height: 75%;
 }
 /* https://codepen.io/GhostRider/pen/oNvoNv */
-.scrollbar-1::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	border-radius: 10px;
-	background-color: #F5F5F5;
-}
 
-.scrollbar-1::-webkit-scrollbar
-{
-	width: 12px;
-	background-color: #F5F5F5;
-}
 
-.scrollbar-1::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar {
+	width: 0.5em;
+  }
+   
+::-webkit-scrollbar-track {
+	/* box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+	
+  }
+   
+::-webkit-scrollbar-thumb {
+	background-color: #38B138;
+	/* outline: 1px solid slategrey; */
 	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	background-color: #555;
-}
+  }
+  
