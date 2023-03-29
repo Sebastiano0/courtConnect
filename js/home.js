@@ -1,3 +1,15 @@
+let prevPage = 0;
+var home = document.querySelector('#home > a');
+var profile = document.querySelector('#profile > a');
+var settings = document.querySelector('#settings > a');
+var request = document.querySelector('#request > a');
+var homeIcon = document.querySelector('#home > svg > g > path');
+var profileIcon = document.querySelector('#profile > svg > g > path');
+var settingsIcon = document.querySelector('#settings > svg > g > path');
+var requestIcon = document.querySelector('#request > svg > path');
+
+let pagesLink = [home, profile, settings, request];
+let pagesIcon = [homeIcon, profileIcon, settingsIcon, requestIcon]
 function makeRequest(event, user_id) {
     console.log(event);
     console.log(user_id);
@@ -16,7 +28,26 @@ function makeRequest(event, user_id) {
                 console.log(this.responseText);
             }
         }
-    };
+};
 
     xhttp.send(formData);
+}
+
+function changeScreen(button){
+    if(prevPage == button){
+        return;
+    } else {
+        pagesLink[button].style.color = '#38B138';
+        pagesIcon[button].style.fill = '#38B138';
+        pagesLink[prevPage].style.color = 'white';
+        pagesIcon[prevPage].style.fill = 'white';
+        prevPage = button;
+    }
+    // console.log(button);
+    // document.getElementById(id).style.color = '#38B138';
+    // // hide the lorem ipsum text
+    // document.getElementById(text).style.display = 'none';
+    // // hide the link
+    // btn.style.display = 'none';
+
 }
