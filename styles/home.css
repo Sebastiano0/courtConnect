@@ -184,34 +184,38 @@ body {
 
 
 ::-webkit-scrollbar {
+	float: right;
 	width: 0.5em;
 }
 
 ::-webkit-scrollbar-track {
+	margin: 30 0px;
 	/* box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
-
 }
 
 ::-webkit-scrollbar-thumb {
 	background-color: #38B138;
 	/* outline: 1px solid slategrey; */
 	border-radius: 10px;
+
 }
 
 
 .requests {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
-a{
+
+a {
 	text-decoration: none;
-	
+
 }
+
 #request {
-	
-    display: flex;
-    align-items: center;
+
+	display: flex;
+	align-items: center;
 	color: white;
 	text-align: center;
 	width: 80%;
@@ -221,26 +225,35 @@ a{
 
 }
 
-#request > a{
+#request>a {
 	color: white;
 }
 
 .request {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .name-request {
-    font-weight: bold;
+	font-weight: bold;
 }
 
-a.pages{
+a.pages {
 	color: white;
 }
 
-a.pages:first-child{
+a.pages:first-child {
 	color: #38B138;
 }
 
-#home > a {
+#home>a {
 	color: #38B138;
+}
+
+.event-button {
+	position: absolute;
+	left: 80%;
+	top: 80%;
+	width: 18%;
+    height: 15%;
+	font-size:90\%;
 }

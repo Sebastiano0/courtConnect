@@ -26,31 +26,68 @@ if (!array_key_exists("email", $_SESSION)) {
     require_once("../model/event.php");
     require_once("../model/user.php");
     require_once("../model/level.php");
+    require_once("../model/activity.php");
 
     $events = Event::LoadEvents();
     $ris = "";
     for ($i = 0; $i < count($events); $i++) {
         $user = User::getUserById($events[$i]->creator_id);
         $lvl = Level::getLevelById($events[$i]->required_level);
-        $activity = $events[$i]->sport;
+        $activity = Activity::getActivitiesById($events[$i]->sport);
         $id = $events[$i]->id;
         $ris = $ris . "<div id='" . $i . "' class='event'>" .
             "<div class='event-creator'>" . $user->name . " " . $user->surname . "</div>" .
             "<div class='event-date'>" . $events[$i]->insert_date . " " . $events[$i]->insert_hour . "</div>" .
             "<div class='event-properties'>" .
-            "<a class='event-property'>" . $events[$i]->sport . "</a>" .
+            "<a class='event-property'>" . $activity->name . "</a>" .
             "<a class='event-property'>" . $events[$i]->date . " " . $events[$i]->hour . "</a>" .
             "<a class='event-property'>Age " . $events[$i]->min_age . "-" . $events[$i]->max_age . "</a>" .
             "<a class='event-property'>" . $lvl->name . "</a>" .
             "<a class='event-property'>" . $events[$i]->address . "</a>" .
             "</div>" .
             "<div class='event-note'>" . $events[$i]->notes . "</div>" .
-            "<button onclick='makeRequest(" . $id . "," . $_SESSION["userID"] . ")'>Request</button>" .
+            "<button class='button event-button' onclick='makeRequest(" . $id . "," . $_SESSION["userID"] . ")'>Request</button>" .
             "</div>";
         //$ris = $ris . "<div>" . $activity . $user->name. "</div>";
     }
     echo $ris;
     ?>
+
+<?php
+    require_once("../model/request.php");
+    require_once("../model/event.php");
+    require_once("../model/user.php");
+    require_once("../model/level.php");
+    require_once("../model/activity.php");
+    
+    $requests = Request::loadRequestsCompleted($_SESSION["userID"]);
+    $ris = "";
+    for ($i = 0; $i < count($requests); $i++) {
+        $user = User::getUserById($requests[$i]->user_id);
+        $event = Event::getEventById($requests[$i]->event_id);
+        $lvl = Level::getLevelById($event->required_level);
+        $activity = Activity::getActivitiesById($events[$i]->sport);
+        $id = $requests[$i]->id;
+        $ris = $ris . "<div id='" . $i . "' class='request-view'>" .
+            "<div class='request-creator'>" . $user->name . " " . $user->surname . "</div>" .
+            "<p> Requested to partecipate to your event<br></p>".
+            "<div class='request-properties'> " .
+            "<p>(" . $activity->name . ", age " .  $events[$i]->min_age . "-" . $events[$i]->max_age . $events[$i]->date . " " . $events[$i]->hour . $events[$i]->address . $lvl->name . ")</p>" .
+            
+            // "<a class='event-property'>" . $events[$i]->sport . "</a>" .
+            // "<a class='event-property'>" . $events[$i]->date . " " . $events[$i]->hour . "</a>" .
+            // "<a class='event-property'>Age " . $events[$i]->min_age . "-" . $events[$i]->max_age . "</a>" .
+            // "<a class='event-property'>" . $lvl->name . "</a>" .
+            // "<a class='event-property'>" . $events[$i]->address . "</a>" .
+            // "</div>" .
+            // "<div class='event-note'>" . $events[$i]->notes . "</div>" .
+            "<button onclick='handleRequest(" . $id . "," . $_SESSION["userID"] . ", 3)'>Refuse</button>" .
+            "<button onclick='handleRequest(" . $id . "," . $_SESSION["userID"] . ", 1)'>Accept</button>" .
+            "</div></div>";
+    }
+    echo $ris;
+    ?>
+
 
 
     <div class="menu">
@@ -141,11 +178,12 @@ if (!array_key_exists("email", $_SESSION)) {
 <script>
     // Seleziona tutti gli elementi con classe "event"
     const eventElements = document.querySelectorAll('.event');
+    const requestElements = document.querySelectorAll('.request-view');
 
     // Aggiungi uno stile personalizzato per gli elementi "event"
     const style = document.createElement('style');
     style.textContent = `
-    .event-container {
+    .event-container, .request-container{
         position: relative;
         width: 60%;
         height: 80%;
@@ -154,13 +192,14 @@ if (!array_key_exists("email", $_SESSION)) {
         overflow-y: scroll;
     }
     
-    .event {
+    .event, .request-view {
         position: absolute;
     width: 100%;
     height: 57.03%;
     background: #666666;
     border-radius: 35px;
     top: calc((57.03% + 10.05%) * var(--post-index));
+    padding-right: 20px;
     }
 `;
     document.head.appendChild(style);
@@ -168,6 +207,8 @@ if (!array_key_exists("email", $_SESSION)) {
     // Crea un contenitore per gli elementi "event"
     const container = document.createElement('div');
     container.classList.add('event-container');
+    const r_container = document.createElement('div');
+    r_container.classList.add('request-container');
 
     // Aggiungi gli elementi "event" al contenitore
     eventElements.forEach((eventElement, index) => {
@@ -175,8 +216,14 @@ if (!array_key_exists("email", $_SESSION)) {
         container.appendChild(eventElement);
     });
 
+    requestElements.forEach((requestElements, index) => {
+        requestElements.style.setProperty('--post-index', index);
+        r_container.appendChild(requestElements);
+    });
+
     // Aggiungi il contenitore alla pagina
     document.body.appendChild(container);
+    document.body.appendChild(r_container);
 
 
 </script>

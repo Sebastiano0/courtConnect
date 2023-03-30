@@ -39,6 +39,24 @@ class Activity{
             return $res;
         
     }
+
+    public static function getActivitiesById($required_id)
+    {
+        $conn = dbConnect();
+        $query = "SELECT * FROM activities WHERE id='$required_id'";
+        $result = $conn->query($query);
+
+        $row = $result->fetch_assoc();
+        if ($result->num_rows > 0) {
+            $res = new Level();
+            $res->id = $row["id"];
+            $res->name = $row["name"];
+            $conn->close();
+            return $res;
+        } else {
+            return null;
+        }
+    }
 }
 
 ?>

@@ -61,6 +61,36 @@ class Event
         return $res;
 
     }
+
+    public static function getEventById($id)
+    {
+        $conn = dbConnect();
+        $query = "SELECT * FROM events WHERE id='$id'";
+        $result = $conn->query($query);
+
+        $row = $result->fetch_assoc();
+        if ($result->num_rows > 0) {
+            $res = new Event();
+            $res->id = $row["id"];
+            $res->date = $row["date"];
+            $res->hour = $row["hour"];
+            $res->sport = $row["sport"];
+            $res->creator_id = $row["creator_id"];
+            $res->notes = $row["notes"];
+            $res->required_level = $row["required_level"];
+            $res->ad_typo = $row["ad_typo"];
+            $res->address = $row["address"];
+            $res->max_age = $row["max_age"];
+            $res->min_age = $row["min_age"];
+            $res->insert_date = $row["insert_date"];
+            $res->insert_hour = $row["insert_hour"];
+            $conn->close();
+            return $res;
+        } else {
+            return null;
+        }
+
+    }
 }
 
 ?>

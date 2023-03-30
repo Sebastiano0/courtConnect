@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (array_key_exists("email", $_SESSION)) {
+if (array_key_exists("userID", $_SESSION)) {
     header('Location: ' . './pages/home.php');
 }
 
