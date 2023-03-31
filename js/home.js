@@ -31,6 +31,7 @@ function makeRequest(event, user_id) {
     xhttp.open("POST", "../api/insert_request.php");
     xhttp.onreadystatechange = async function () {
         if (this.readyState == 4 && this.status == 200) {
+            alert("Request sent")
             if (this.responseText == "1") {
             } else {
                 console.log(this.responseText);

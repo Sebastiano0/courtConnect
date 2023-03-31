@@ -89,15 +89,12 @@ if (!array_key_exists("email", $_SESSION)) {
     $ris = "";
     for ($i = 0; $i < count($requests); $i++) {
         $ris = $ris . "<div id='" . $requests[$i][7] . "' class='your-request-view'>" .
-            "<div class='request-creator'>" . $requests[$i][4] . " " . $requests[$i][5] . "</div>" .
-            //"<p> Your requestes to partecipate to  events<br></p>" .
-            "<div class='request-properties'> " .
-            "<div>" . $requests[$i][1] . " " . $requests[$i][2] . " " . $requests[$i][3] . "</div>" .
+            "<p class='request-creator'>" . $requests[$i][4] . " " . $requests[$i][5] . " - " . $requests[$i][0] . "</p>" .
 
-            "<div>" . $requests[$i][6] . "</div>" .
+            "<p class='request-properties'>" . $requests[$i][1] . " " . $requests[$i][2] . " " . $requests[$i][3] . " " . $requests[$i][6] ."</p>" .
+            "<p class='request-notes'><br><br>" . $requests[$i][8] . "</p>" .
 
-           "<div>" . $requests[$i][0] . "</div>" .
-            "</div></div>";
+            "</div>";
     }
     echo $ris;
     ?>
@@ -199,7 +196,7 @@ if (!array_key_exists("email", $_SESSION)) {
             $date = $requests[$i][2];
             $hour = $requests[$i][3];
             $ris = $ris . "<div id='" . $i . "' class='your-request'>" .
-                "<p class='name-your-request'>" . $activity-> name . " " . $date . " " . $hour . " " . $state . "</p>";
+                "<p class='name-your_request'><b>" . $activity-> name . "</b> " . $date . " " . $state . "</p></div>";
         }
         echo $ris;
         ?>
@@ -215,7 +212,7 @@ if (!array_key_exists("email", $_SESSION)) {
     // Aggiungi uno stile personalizzato per gli elementi "event"
     const style = document.createElement('style');
     style.textContent = `
-    .event-container, .request-container, your-request-container{
+    .event-container, .request-container, .your-request-container{
         position: relative;
         width: 60%;
         height: 80%;
@@ -224,7 +221,7 @@ if (!array_key_exists("email", $_SESSION)) {
         overflow-y: scroll;
     }
     
-    .event, .request-view, your-request-view{
+    .event, .request-view, .your-request-view{
     position: absolute;
     height: 57.03%;
     background: #666666;

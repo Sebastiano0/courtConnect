@@ -329,7 +329,52 @@ a.pages:first-child {
 	font-weight: 500;
 	font-size: 34px;
 	line-height: 41px;
-	display: flex;
 	text-align: center;
 	overflow-y: scroll;
+}
+
+.your-request-view{
+		width: 100%;
+		position: absolute;
+		padding: 40px;
+		box-sizing: border-box;
+		font-size: 33px;
+		font-family: 'Inter', sans-serif;
+}
+
+.request-creator{
+	color: #F5F5F5;
+}
+
+.request-properties{
+	color: #38B138;
+	font-size: 25px;
+}
+
+.request-notes{
+	color: #F5F5F5;
+	font-size: 25px;
+
+}
+
+#your_request {
+	align-items: center;
+	color: white;
+	text-align: center;
+	width: 100%;
+	top: 5%;
+	justify-content: center;
+}
+
+#your_request>a {
+	color: white;
+	align-items: center;
+}
+
+.your-request {
+}
+
+.name-your_request {
+	font-size: 15px;
+	color: #38B138;
 }

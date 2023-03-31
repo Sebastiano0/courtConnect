@@ -89,7 +89,7 @@ class Request
     public static function loadYourRequestsCompleted($id){
         $conn = dbConnect();
         
-        $result = $conn->query("SELECT r.id AS id, s.name AS state, a.name AS activity, e.date AS date, e.hour AS hour, u.name AS name, u.surname AS surname, e.address AS address FROM requests r INNER JOIN events e ON e.id = r.event_id INNER JOIN users u ON u.id=e.creator_id INNER JOIN activities a ON a.id=e.sport INNER JOIN states s ON s.id=r.state WHERE r.user_id=$id");
+        $result = $conn->query("SELECT e.notes AS note, r.id AS id, s.name AS state, a.name AS activity, e.date AS date, e.hour AS hour, u.name AS name, u.surname AS surname, e.address AS address FROM requests r INNER JOIN events e ON e.id = r.event_id INNER JOIN users u ON u.id=e.creator_id INNER JOIN activities a ON a.id=e.sport INNER JOIN states s ON s.id=r.state WHERE r.user_id=$id");
         $res = array();
 
         while ($row = $result->fetch_assoc()) {
@@ -102,6 +102,7 @@ class Request
             $tmp[] = $row["surname"];
             $tmp[] = $row["address"];
             $tmp[] = $row["id"];
+            $tmp[] = $row["note"];
             $res[] = $tmp;
         }
 
