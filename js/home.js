@@ -3,13 +3,21 @@ var home = document.querySelector('#home > a');
 var profile = document.querySelector('#profile > a');
 var settings = document.querySelector('#settings > a');
 var request = document.querySelector('#request > a');
+var your_request = document.querySelector('#your_request > a');
+
 var homeIcon = document.querySelector('#home > svg > g > path');
 var profileIcon = document.querySelector('#profile > svg > g > path');
 var settingsIcon = document.querySelector('#settings > svg > g > path');
 var requestIcon = document.querySelector('#request > svg > path');
+var your_requestIcon = document.querySelector('#your_request > svg > path');
+
+
 document.querySelector('.request-container').style.display = "none";
-let pagesLink = [home, profile, settings, request];
-let pagesIcon = [homeIcon, profileIcon, settingsIcon, requestIcon]
+document.querySelector('.your-request-container').style.display = "none";
+
+let pagesLink = [home, profile, settings, request, your_request];
+let pagesIcon = [homeIcon, profileIcon, settingsIcon, requestIcon, your_requestIcon];
+
 function makeRequest(event, user_id) {
     console.log(event);
     console.log(user_id);
@@ -55,11 +63,18 @@ function changeScreen(button){
         }
         if(button == 3){
             document.querySelector('.event-container').style.display = "none";
+            document.querySelector('.your-request-container').style.display = "none";
             document.querySelector('.request-container').style.display = "block";
         }
         if(button == 0){
             document.querySelector('.request-container').style.display = "none";
             document.querySelector('.event-container').style.display = "block";
+            document.querySelector('.your-request-container').style.display = "none";
+        }
+        if(button == 4){
+            document.querySelector('.request-container').style.display = "none";
+            document.querySelector('.event-container').style.display = "none";
+            document.querySelector('.your-request-container').style.display = "block";
         }
         prevPage = button;
     }

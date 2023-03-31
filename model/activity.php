@@ -48,7 +48,7 @@ class Activity{
 
         $row = $result->fetch_assoc();
         if ($result->num_rows > 0) {
-            $res = new Level();
+            $res = new Activity();
             $res->id = $row["id"];
             $res->name = $row["name"];
             $conn->close();

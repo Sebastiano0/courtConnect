@@ -32,11 +32,11 @@ class Event
         }
     }
 
-    public static function loadEvents()
+    public static function loadEvents($id)
     {
         $conn = dbConnect();
 
-        $result = $conn->query("SELECT * FROM events");
+        $result = $conn->query("SELECT * FROM events WHERE creator_id != $id");
         $res = array();
 
         while ($row = $result->fetch_assoc()) {

@@ -31,8 +31,8 @@ class UserPreference{
             while($row = $result->fetch_assoc()){
                 $tmp = new UserPreference();
                 $tmp->id = $row["id"];
-                $tmp->userId = $row["user"];
-                $tmp->activityId = $row["activity"];
+                $tmp->user = $row["user"];
+                $tmp->activity = $row["activity"];
                 $res[] = $tmp;
             }
             
