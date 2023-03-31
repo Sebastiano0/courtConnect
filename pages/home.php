@@ -168,7 +168,7 @@ if (!array_key_exists("email", $_SESSION)) {
             $name = $requests[$i][0];
             $surname = $requests[$i][1];
             $ris = $ris . "<div id='" . $i . "' class='request'>" .
-                "<p class='name-request'>" . $name . " " . $surname . "</p>";
+                "<p class='name-request'>" . $name . " " . $surname . "</p></div>";
             //$ris = $ris . "<div>" . $activity . $user->name. "</div>";
         }
         echo $ris;
