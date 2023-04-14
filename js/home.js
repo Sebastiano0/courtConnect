@@ -14,6 +14,8 @@ var your_requestIcon = document.querySelector('#your_request > svg > path');
 
 document.querySelector('.request-container').style.display = "none";
 document.querySelector('.your-request-container').style.display = "none";
+document.querySelector('.profile').style.display = "none";
+
 
 let pagesLink = [home, profile, settings, request, your_request];
 let pagesIcon = [homeIcon, profileIcon, settingsIcon, requestIcon, your_requestIcon];
@@ -50,6 +52,11 @@ function changeScreen(button){
         pagesIcon[button].style.fill = '#38B138';
         pagesLink[prevPage].style.color = 'white';
         pagesIcon[prevPage].style.fill = 'white';
+        document.querySelector('.event-container').style.display = "none";
+        document.querySelector('.your-request-container').style.display = "none";
+        document.querySelector('.request-container').style.display = "none";
+        document.querySelector('.profile').style.display = "none";
+
         if(prevPage == 1){
             document.querySelector('#profile path:nth-of-type(2)').style.fill = "white";
         } 
@@ -57,24 +64,20 @@ function changeScreen(button){
             document.querySelector('#settings path:nth-of-type(2)').style.fill = "white";
         }
         if(button == 1){
+            document.querySelector('.profile').style.display = "block";
             document.querySelector('#profile path:nth-of-type(2)').style.fill = "#38B138";
         }
         if(button == 2) {
             document.querySelector('#settings path:nth-of-type(2)').style.fill = "#38B138";
         }
         if(button == 3){
-            document.querySelector('.event-container').style.display = "none";
-            document.querySelector('.your-request-container').style.display = "none";
             document.querySelector('.request-container').style.display = "block";
         }
         if(button == 0){
-            document.querySelector('.request-container').style.display = "none";
             document.querySelector('.event-container').style.display = "block";
-            document.querySelector('.your-request-container').style.display = "none";
+
         }
         if(button == 4){
-            document.querySelector('.request-container').style.display = "none";
-            document.querySelector('.event-container').style.display = "none";
             document.querySelector('.your-request-container').style.display = "block";
         }
         prevPage = button;

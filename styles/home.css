@@ -371,10 +371,17 @@ a.pages:first-child {
 	align-items: center;
 }
 
-.your-request {
-}
-
 .name-your_request {
 	font-size: 15px;
-	color: #38B138;
+	color: #ffffff;
+}
+
+.profile-container	{
+	background: #666666;
+	position: relative;
+	width: 60%;
+	height: 80%;
+	top: 20%;
+	left: 20%;
+	overflow-y: scroll;
 }

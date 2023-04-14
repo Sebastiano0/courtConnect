@@ -13,15 +13,12 @@
     <img class="logo" src="../assets/images/logo.svg" alt="logo">
     <form id="regForm" name="regForm" action="./homepage.php">
         <h1>Login</h1>
-        <!-- One "tab" for each step in the form: -->
+        <!-- One "tab" for each step in the form:  -->
         <div class="tab">
-            <div class="row">
-                <p>Mail</p>
-                <input placeholder="Mail..." oninput="this.className = ''" name="email">
-                <p>Password</p>
-                <input placeholder="Password..." oninput="this.className = ''" name="pword" type="password">
-            </div>
-
+                <div>Email</div>
+                <input placeholder="Email" oninput="this.className = ''" name="email">
+                <div>Password</div>
+                <input placeholder="Password" oninput="this.className = ''" name="pword" type="password">
         </div>
         <div style="overflow:auto;">
             <div style="float:right;">
@@ -30,7 +27,8 @@
         </div>
     </form>
     <script src="../js/signup.js"></script>
-
+    
+    </body>
 </body>
 
 </html>

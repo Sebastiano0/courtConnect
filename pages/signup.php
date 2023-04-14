@@ -14,7 +14,6 @@
     <img class="logo" src="../assets/images/logo.svg" alt="logo">
     <form id="regForm" name="regForm" action="./homepage.php">
         <h1>Register</h1>
-        <!-- One "tab" for each step in the form: -->
         <div class="tab">
             <div class="row">
                 <p>First name</p>
@@ -28,7 +27,6 @@
                 <p>Fiscal code</p>
                 <input type="text" placeholder="Fiscal code..." oninput="this.className = ''" name="fcode">
                 <p>City of residence</p>
-                <!--per ora qui dopo su un altra schermata-->
                 <input placeholder="Address..." oninput="this.className = ''" name="address">
             </div>
 
@@ -70,14 +68,13 @@
                 <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
             </div>
         </div>
-        <!-- Circles which indicates the steps of the form: -->
         <div style="text-align:center;margin-top:40px;">
             <span class="step"></span>
             <span class="step"></span>
             <span class="step"></span>
         </div>
     </form>
-    <!--<button type="button" id="prova" onclick="addPreferences()">Prova</button> -->
+    <button type="button" id="prova" onclick="addPreferences()">Prova</button>
 
 </body>
 <script src="../js/signup.js"></script>

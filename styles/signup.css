@@ -3,6 +3,14 @@
   padding: 0;
 }
 
+.logo {
+  position: absolute;
+  width: 12%;
+  height: 12%;
+  left: 1%;
+  top: 1%;
+}
+
 html {
   height: 100%;
   width: 100%;
@@ -15,13 +23,30 @@ body {
   background: radial-gradient(104.49% 104.49% at 50% 50%, #000000 0%, rgba(55, 55, 55, 0.432292) 100%);
 }
 
-.logo {
-  position: absolute;
-  width: 12%;
-  height: 12%;
-  left: 1%;
-  top: 1%;
+input {
+  padding: 12px;
+  width: 100%;
+  font-size: 17px;
+  font-family: 'Inter', sans-serif;
+  background-color: transparent;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  border: none;
+  border-bottom: 1px solid rgb(12, 202, 21);
+  border-radius: 5px;
+  color: #bbbbbb;
 }
+
+
+input:focus{
+  border: 1px solid rgb(12, 202, 21);
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
 
@@ -45,36 +70,13 @@ h1 {
   text-align: center;
 }
 
-input {
-  padding: 12px;
-  width: 100%;
-  font-size: 17px;
-  font-family: 'Inter', sans-serif;
-  background-color: transparent;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
-  margin-bottom: 15px;
-  border: none;
-  border-bottom: 1px solid rgb(12, 202, 21);
-  border-radius: 5px;
-  color: #bbbbbb;
-}
-
 ::placeholder {
   color: #bbbbbb;
-  opacity: 1; /* Firefox */
+  opacity: 1;
 }
 
 
-input:focus{
-  border: 1px solid rgb(12, 202, 21);
-}
 
-/* Mark input boxes that gets an error on validation: */
-input.invalid {
-  background-color: #ffdddd;
-}
-
-/* Hide all steps by default: */
 .tab {
   display: none;
 }
@@ -99,7 +101,6 @@ button:hover {
   background-color: #bbbbbb;
 }
 
-/* Make circles that indicate the steps of the form: */
 .step {
   height: 15px;
   width: 15px;
@@ -115,13 +116,12 @@ button:hover {
   opacity: 1;
 }
 
-/* Mark the steps that are finished and valid: */
 .step.finish {
   background-color: #04AA6D;
 }
 
 .row {
-  display: flex; /* 2. display flex to the rescue */
+  display: flex;
   flex-direction: row;
 
 }

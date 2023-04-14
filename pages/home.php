@@ -35,17 +35,20 @@ if (!array_key_exists("email", $_SESSION)) {
         $lvl = Level::getLevelById($events[$i]->required_level);
         $activity = Activity::getActivitiesById($events[$i]->sport);
         $id = $events[$i]->id;
+        $date = $events[$i]->insert_date = date("d/m/Y", strtotime($events[$i]->insert_date));
+        $hour = $events[$i]->insert_hour = date("H:i", strtotime($events[$i]->insert_hour));
         $ris = $ris . "<div id='" . $i . "' class='event'>" .
-            "<div class='event-creator'>" . $user->name . " " . $user->surname . "</div>" .
-            "<div class='event-date'>" . $events[$i]->insert_date . " " . $events[$i]->insert_hour . "</div>" .
+            "<div class='event-note'>" . $events[$i]->notes . "</div>" .
+
+            // "<div class='event-date'>" . $date . " " . $hour . "</div>" .
             "<div class='event-properties'>" .
             "<a class='event-property'>" . $activity->name . "</a>" .
-            "<a class='event-property'>" . $events[$i]->date . " " . $events[$i]->hour . "</a>" .
+            "<a class='event-property'>" . date("d/m/Y", strtotime($events[$i]->date)) . " " . date("H:i", strtotime($events[$i]->hour)) . "</a>" .
             "<a class='event-property'>Age " . $events[$i]->min_age . "-" . $events[$i]->max_age . "</a>" .
             "<a class='event-property'>" . $lvl->name . "</a>" .
             "<a class='event-property'>" . $events[$i]->address . "</a>" .
             "</div>" .
-            "<div class='event-note'>" . $events[$i]->notes . "</div>" .
+            "<div class='event-creator'>" . $user->name . " " . $user->surname . "</div>" .
             "<button class='button event-button' onclick='makeRequest(" . $id . "," . $_SESSION["userID"] . ")'>Request</button>" .
             "</div>";
         //$ris = $ris . "<div>" . $activity . $user->name. "</div>";
@@ -82,17 +85,19 @@ if (!array_key_exists("email", $_SESSION)) {
     echo $ris;
     ?>
 
-<?php
+    <?php
     require_once("../model/request.php");
 
     $requests = Request::loadYourRequestsCompleted($_SESSION["userID"]);
     $ris = "";
     for ($i = 0; $i < count($requests); $i++) {
-        $ris = $ris . "<div id='" . $requests[$i][7] . "' class='your-request-view'>" .
-            "<p class='request-creator'>" . $requests[$i][4] . " " . $requests[$i][5] . " - " . $requests[$i][0] . "</p>" .
 
-            "<p class='request-properties'>" . $requests[$i][1] . " " . $requests[$i][2] . " " . $requests[$i][3] . " " . $requests[$i][6] ."</p>" .
-            "<p class='request-notes'><br><br>" . $requests[$i][8] . "</p>" .
+        $ris = $ris . "<div id='" . $requests[$i][7] . "' class='your-request-view'>" .
+        "<p class='request-notes'><br><br>" . $requests[$i][8] . "</p>" .
+
+            "<p class='request-properties'>" . $requests[$i][1] . " " . $requests[$i][2] . " " . $requests[$i][3] . " " . $requests[$i][6] . "</p>" .
+            
+            "<p class='request-creator'>" . $requests[$i][4] . " " . $requests[$i][5] . " - " . $requests[$i][0] . "</p>" .
 
             "</div>";
     }
@@ -196,10 +201,17 @@ if (!array_key_exists("email", $_SESSION)) {
             $date = $requests[$i][2];
             $hour = $requests[$i][3];
             $ris = $ris . "<div id='" . $i . "' class='your-request'>" .
-                "<p class='name-your_request'><b>" . $activity-> name . "</b> " . $date . " " . $state . "</p></div>";
+                "<p class='name-your_request'><b>" . $activity->name . "</b> " . $date . " " . $state . "</p></div>";
         }
         echo $ris;
         ?>
+    </div>
+
+    <div class="profile profile-container">
+        <?php
+        echo $_SESSION["userID"]
+        ?>
+        <h1></h1>
     </div>
 
 
@@ -219,14 +231,15 @@ if (!array_key_exists("email", $_SESSION)) {
         top: 20%;
         left: 20%;
         overflow-y: scroll;
-    }
+    }    
     
     .event, .request-view, .your-request-view{
     position: absolute;
+    width: 27%;
     height: 57.03%;
     background: #666666;
     border-radius: 35px;
-    top: calc((57.03% + 10.05%) * var(--post-index));
+    top: calc((57.03% + 10.05%) * (int)var(--post-index)/3);
     padding-right: 20px;
     }
 `;
