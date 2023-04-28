@@ -4,7 +4,7 @@ function dbConnect()
 {
     $servername = "129.152.22.2";
     $username = "root";
-    $password = "LampadarioBlu23";
+    $password = "";
     $database = "courtconnect";
     $conn = new mysqli($servername, $username, $password, $database);
 
