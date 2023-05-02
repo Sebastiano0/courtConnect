@@ -27,7 +27,7 @@ function makeRequest(event, user_id) {
     let formData = new FormData();
     formData.append("event_id", event);
     formData.append("user_id", user_id);
-    formData.append("state", 2);
+    formData.append("state", 1);
 
     let xhttp = new XMLHttpRequest();
     xhttp.open("POST", "../api/insert_request.php");
@@ -110,7 +110,7 @@ function handleRequest(request_id, user_id, action){
   
     xhttp.send(formData);
   
-    if(action == 1){
+    if(action == 2){
         alert("Accepted");
     } else {
 

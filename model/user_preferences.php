@@ -4,16 +4,16 @@ require_once(__DIR__ . "/utils.php");
 
 class UserPreference{
     var $id;
-    var $user;
-    var $activity;
+    var $user_id;
+    var $activity_id;
 
     //map
     public function save(){
         if ($this->id == null) {
             $conn = dbConnect();
 
-            $query = "INSERT INTO userPreferences(user, activity) " .
-                "VALUES ('$this->user', '$this->activity') ";
+            $query = "INSERT INTO userPreferences(user_id, activity_id) " .
+                "VALUES ('$this->user_id', '$this->activity_id') ";
 
             $result = $conn->query($query);
 
@@ -31,8 +31,8 @@ class UserPreference{
             while($row = $result->fetch_assoc()){
                 $tmp = new UserPreference();
                 $tmp->id = $row["id"];
-                $tmp->user = $row["user"];
-                $tmp->activity = $row["activity"];
+                $tmp->user_id = $row["user_id"];
+                $tmp->activity_id = $row["activity_id"];
                 $res[] = $tmp;
             }
             

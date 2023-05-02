@@ -4,7 +4,7 @@
     $user = new User();
     $user->name = $_POST["name"];
     $user->surname = $_POST["surname"];
-    $user->birthDate = $_POST["birthDate"];
+    $user->birth_date = $_POST["birthDate"];
     $user->gender = $_POST["gender"];
     $user->phone = $_POST["phone"];
     $user->townId = $_POST["townId"];

@@ -46,7 +46,7 @@ if (!array_key_exists("email", $_SESSION)) {
             "<a class='event-property'>" . date("d/m/Y", strtotime($events[$i]->date)) . " " . date("H:i", strtotime($events[$i]->hour)) . "</a>" .
             "<a class='event-property'>Age " . $events[$i]->min_age . "-" . $events[$i]->max_age . "</a>" .
             "<a class='event-property'>" . $lvl->name . "</a>" .
-            "<a class='event-property'>" . $events[$i]->address . "</a>" .
+            "<a class='event-property'>" . $events[$i]->lat . " " . $events[$i]->lat . "</a>" .
             "</div>" .
             "<div class='event-creator'>" . $user->name . " " . $user->surname . "</div>" .
             "<button class='button event-button' onclick='makeRequest(" . $id . "," . $_SESSION["userID"] . ")'>Request</button>" .
@@ -75,7 +75,7 @@ if (!array_key_exists("email", $_SESSION)) {
             "<div class='request-creator'>" . $user->name . " " . $user->surname . "</div>" .
             "<p> Requested to partecipate to your event<br></p>" .
             "<div class='request-properties'> " .
-            "<p>(" . $activity->name . ", age " .  $events[$i]->min_age . "-" . $events[$i]->max_age . " " . $events[$i]->date . " " . $events[$i]->hour . " " . $events[$i]->address . " " . $lvl->name . ")</p>" .
+            "<p>(" . $activity->name . ", age " .  $events[$i]->min_age . "-" . $events[$i]->max_age . " " . $events[$i]->date . " " . $events[$i]->hour . " " . $events[$i]->lat . " " . $events[$i]->lat . " " . $lvl->name . ")</p>" .
 
 
             "<button id='acceptbutton' onclick='handleRequest(" . $id . "," . $_SESSION["userID"] . ", 1)'>Accept</button>" .
@@ -95,7 +95,7 @@ if (!array_key_exists("email", $_SESSION)) {
         $ris = $ris . "<div id='" . $requests[$i][7] . "' class='your-request-view'>" .
         "<p class='request-notes'><br><br>" . $requests[$i][8] . "</p>" .
 
-            "<p class='request-properties'>" . $requests[$i][1] . " " . $requests[$i][2] . " " . $requests[$i][3] . " " . $requests[$i][6] . "</p>" .
+            "<p class='request-properties'>" . $requests[$i][1] . " " . $requests[$i][2] . " " . $requests[$i][3] . " " . $requests[$i][6] . " " . $requests[$i][9] . "</p>" .
             
             "<p class='request-creator'>" . $requests[$i][4] . " " . $requests[$i][5] . " - " . $requests[$i][0] . "</p>" .
 

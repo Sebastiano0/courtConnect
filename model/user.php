@@ -7,7 +7,7 @@ class User
     var $id;
     var $name;
     var $surname;
-    var $birthDate;
+    var $birth_date;
     var $gender;
     var $phone;
     var $townId;
@@ -21,8 +21,8 @@ class User
         if ($this->id == null) {
             $conn = dbConnect();
 
-            $query = "INSERT INTO users(name, surname, birthDate, gender, phone, town_id, email, password, tax_id) " .
-                "VALUES ('$this->name', '$this->surname', '$this->birthDate', '$this->gender', '$this->phone', '$this->townId', '$this->email', '$this->password', '$this->taxId') ";
+            $query = "INSERT INTO users(name, surname, birth_date, gender, phone, town_id, email, password, tax_id) " .
+                "VALUES ('$this->name', '$this->surname', '$this->birth_date', '$this->gender', '$this->phone', '$this->townId', '$this->email', '$this->password', '$this->taxId') ";
 
             $result = $conn->query($query);
 
@@ -56,7 +56,7 @@ class User
             $res->id = $row["id"];
             $res->name = $row["name"];
             $res->surname = $row["surname"];
-            $res->birthDate = $row["birthdate"];
+            $res->birth_date = $row["birth_date"];
             $res->gender = $row["gender"];
             $res->phone = $row["phone"];
             $res->townId = $row["town_id"];
@@ -83,7 +83,7 @@ class User
                 $res->id = $row["id"];
                 $res->name = $row["name"];
                 $res->surname = $row["surname"];
-                $res->birthDate = $row["birthdate"];
+                $res->birth_date = $row["birth_date"];
                 $res->gender = $row["gender"];
                 $res->phone = $row["phone"];
                 $res->townId = $row["town_id"];

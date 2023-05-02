@@ -28,7 +28,7 @@ class Request
     {
         $conn = dbConnect();
 
-        $result = $conn->query("SELECT u.name AS name, u.surname AS surname FROM requests r INNER JOIN events e ON r.event_id = e.id AND e.creator_id = $id INNER JOIN users u ON u.id = r.user_id WHERE r.state = 2");
+        $result = $conn->query("SELECT u.name AS name, u.surname AS surname FROM requests r INNER JOIN events e ON r.event_id = e.id AND e.creator_id = $id INNER JOIN users u ON u.id = r.user_id WHERE r.state = 1");
         $res = array();
 
         while ($row = $result->fetch_assoc()) {
@@ -48,7 +48,7 @@ class Request
     {
         $conn = dbConnect();
         
-        $result = $conn->query("SELECT r.id, r.event_id, r.user_id, r.state FROM requests r INNER JOIN events e ON r.event_id = e.id AND e.creator_id = $id INNER JOIN users u ON u.id = r.user_id WHERE r.state = 2");
+        $result = $conn->query("SELECT r.id, r.event_id, r.user_id, r.state FROM requests r INNER JOIN events e ON r.event_id = e.id AND e.creator_id = $id INNER JOIN users u ON u.id = r.user_id WHERE r.state = 1");
         $res = array();
 
         while ($row = $result->fetch_assoc()) {
@@ -89,7 +89,7 @@ class Request
     public static function loadYourRequestsCompleted($id){
         $conn = dbConnect();
         
-        $result = $conn->query("SELECT e.notes AS note, r.id AS id, s.name AS state, a.name AS activity, e.date AS date, e.hour AS hour, u.name AS name, u.surname AS surname, e.address AS address FROM requests r INNER JOIN events e ON e.id = r.event_id INNER JOIN users u ON u.id=e.creator_id INNER JOIN activities a ON a.id=e.sport INNER JOIN states s ON s.id=r.state WHERE r.user_id=$id");
+        $result = $conn->query("SELECT e.notes AS note, r.id AS id, s.name AS state, a.name AS activity, e.date AS date, e.hour AS hour, u.name AS name, u.surname AS surname, e.lat AS lat, e.lng AS lng FROM requests r INNER JOIN events e ON e.id = r.event_id INNER JOIN users u ON u.id=e.creator_id INNER JOIN activities a ON a.id=e.sport INNER JOIN states s ON s.id=r.state WHERE r.user_id=$id");
         $res = array();
 
         while ($row = $result->fetch_assoc()) {
@@ -100,9 +100,10 @@ class Request
             $tmp[] = $row["hour"];
             $tmp[] = $row["name"];
             $tmp[] = $row["surname"];
-            $tmp[] = $row["address"];
+            $tmp[] = $row["lng"];
             $tmp[] = $row["id"];
             $tmp[] = $row["note"];
+            $tmp[] = $row["lat"];
             $res[] = $tmp;
         }
 

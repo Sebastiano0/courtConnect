@@ -16,6 +16,10 @@ if (!array_key_exists("email", $_SESSION)) {
 
     <link rel="stylesheet" href="../styles/signup.css">
     <link rel="stylesheet" href="../styles/create.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyCEIyEKkspLepmlsDKS_q5xlA7tPVnoY6U&sensor=false&libraries=places"></script>
+    <script type="text/javascript" src="https://rawgit.com/Logicify/jquery-locationpicker-plugin/master/dist/locationpicker.jquery.js"></script>
+    <script src="../js/create_post.js"></script>
 
 </head>
 
@@ -54,7 +58,7 @@ if (!array_key_exists("email", $_SESSION)) {
             </div>
             <div class="row">
                 <p>Location</p>
-                <input placeholder="Location..." oninput="this.className = ''" name="location">
+                <input placeholder="Location..." id="location" oninput="this.className = ''" name="location">
             </div>
             <div class="row">
                 <p>Skill level</p>
@@ -67,7 +71,7 @@ if (!array_key_exists("email", $_SESSION)) {
                 for ($i = 0; $i < count($levels); $i++) {
                     $name = $levels[$i]->name;
                     $id = $levels[$i]->id;
-                    $ris = $ris . "<button type='button' onclick='setLevel(".$id.")' id = '" . $id . "'>" . $name . "</button>";
+                    $ris = $ris . "<button type='button' onclick='setLevel(" . $id . ")' id = '" . $id . "'>" . $name . "</button>";
                 }
                 $ris = $ris . "</div></div></div>";
                 echo $ris
@@ -88,9 +92,9 @@ if (!array_key_exists("email", $_SESSION)) {
     </form>
 </body>
 <script>
-     const userId = '<?php echo $_SESSION["userID"] ?>'
-     console.log('The user id is', userId)
-  </script>
-  <script src="../js/create_post.js"></script>
+    const userId = '<?php echo $_SESSION["userID"] ?>'
+    console.log('The user id is', userId)
+
+</script>
 
 </html>
