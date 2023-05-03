@@ -16,6 +16,11 @@ body {
 	background: radial-gradient(104.49% 104.49% at 50% 50%, #000000 0%, rgba(55, 55, 55, 0.432292) 100%);
 }
 
+#event {
+	height: 100%;
+  }
+  
+
 .logo {
 	position: absolute;
 	width: 61.22px;

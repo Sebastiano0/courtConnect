@@ -14,46 +14,19 @@ if (!array_key_exists("email", $_SESSION)) {
     <title>Court Connect</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="../styles/home.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
 
 </head>
 
-<body>
+<body onload="initMap()">
     <img class="logo" src="../assets/images/logo.svg" alt="logo">
     <button class="button" id="logout-button" onclick="logoutUser()">Logout</button>
 
     <?php
-    require_once("../model/event.php");
-    require_once("../model/user.php");
-    require_once("../model/level.php");
-    require_once("../model/activity.php");
-
-    $events = Event::LoadEvents($_SESSION["userID"]);
-    $ris = "";
-    for ($i = 0; $i < count($events); $i++) {
-        $user = User::getUserById($events[$i]->creator_id);
-        $lvl = Level::getLevelById($events[$i]->required_level);
-        $activity = Activity::getActivitiesById($events[$i]->sport);
-        $id = $events[$i]->id;
-        $date = $events[$i]->insert_date = date("d/m/Y", strtotime($events[$i]->insert_date));
-        $hour = $events[$i]->insert_hour = date("H:i", strtotime($events[$i]->insert_hour));
-        $ris = $ris . "<div id='" . $i . "' class='event'>" .
-            "<div class='event-note'>" . $events[$i]->notes . "</div>" .
-
-            // "<div class='event-date'>" . $date . " " . $hour . "</div>" .
-            "<div class='event-properties'>" .
-            "<a class='event-property'>" . $activity->name . "</a>" .
-            "<a class='event-property'>" . date("d/m/Y", strtotime($events[$i]->date)) . " " . date("H:i", strtotime($events[$i]->hour)) . "</a>" .
-            "<a class='event-property'>Age " . $events[$i]->min_age . "-" . $events[$i]->max_age . "</a>" .
-            "<a class='event-property'>" . $lvl->name . "</a>" .
-            "<a class='event-property'>" . $events[$i]->lat . " " . $events[$i]->lat . "</a>" .
-            "</div>" .
-            "<div class='event-creator'>" . $user->name . " " . $user->surname . "</div>" .
-            "<button class='button event-button' onclick='makeRequest(" . $id . "," . $_SESSION["userID"] . ")'>Request</button>" .
-            "</div>";
-        //$ris = $ris . "<div>" . $activity . $user->name. "</div>";
-    }
-    echo $ris;
+    echo '<div id="event">da</div>';
+    //load events as marker to the map
+    
     ?>
 
     <?php
@@ -259,7 +232,7 @@ if (!array_key_exists("email", $_SESSION)) {
 </body>
 <script>
     // Seleziona tutti gli elementi con classe "event"
-    const eventElements = document.querySelectorAll('.event');
+    const eventElements = document.querySelectorAll('#event');
     const requestElements = document.querySelectorAll('.request-view');
     const yourRequestElements = document.querySelectorAll('.your-request-view');
     // Aggiungi uno stile personalizzato per gli elementi "event"
@@ -315,6 +288,69 @@ if (!array_key_exists("email", $_SESSION)) {
     document.body.appendChild(r_container);
     document.body.appendChild(y_r_container);
 </script>
-<script type="text/javascript" src="../js/home.js"></script>
+<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+        ({key: "AIzaSyCEIyEKkspLepmlsDKS_q5xlA7tPVnoY6U", v: "weekly"});</script>
 
+<script type="text/javascript" src="../js/home.js"></script>
+<script>
+<?php
+    require_once("../model/event.php");
+    require_once("../model/user.php");
+    require_once("../model/level.php");
+    require_once("../model/activity.php");
+
+    $events = Event::LoadEvents($_SESSION["userID"]);
+    $ris = "";
+    for ($i = 0; $i < count($events); $i++) {
+        $user = User::getUserById($events[$i]->creator_id);
+        $lvl = Level::getLevelById($events[$i]->required_level);
+        $activity = Activity::getActivitiesById($events[$i]->sport);
+        $id = $events[$i]->id;
+        $date = $events[$i]->insert_date = date("d/m/Y", strtotime($events[$i]->insert_date));
+        $hour = $events[$i]->insert_hour = date("H:i", strtotime($events[$i]->insert_hour));
+        $markers = array();
+        for ($i = 0; $i < count($events); $i++) {
+            // recupera la posizione dell'evento
+            $lat = $events[$i]->lat;
+            $lng = $events[$i]->lng;
+            const { Marker } = await google.maps.importLibrary("marker");
+            $marker = new Marker(array(
+                'position' => array($lat, $lng),
+                'map' => $map,  // associa il marker alla mappa
+                'title' => $events[$i]->notes  // opzionale: aggiunge un'etichetta al marker
+            ));
+    
+            // crea il marker per l'evento
+            // $marker = new Marker(array(
+            //     'position' => { lat: 0, lng: 0 },
+            //     'map' => $map,  // associa il marker alla mappa
+            //     'title' => $events[$i]->notes  // opzionale: aggiunge un'etichetta al marker
+            // ));
+    
+            // aggiungi il marker all'array
+            $markers[] = $marker;
+        }
+    
+        // $ris = $ris . "<div id='" . $i . "' class='event'>" .
+        //     "<div class='event-note'>" . $events[$i]->notes . "</div>" .
+
+        //     // "<div class='event-date'>" . $date . " " . $hour . "</div>" .
+        //     "<div class='event-properties'>" .
+        //     "<a class='event-property'>" . $activity->name . "</a>" .
+        //     "<a class='event-property'>" . date("d/m/Y", strtotime($events[$i]->date)) . " " . date("H:i", strtotime($events[$i]->hour)) . "</a>" .
+        //     "<a class='event-property'>Age " . $events[$i]->min_age . "-" . $events[$i]->max_age . "</a>" .
+        //     "<a class='event-property'>" . $lvl->name . "</a>" .
+        //     "<a class='event-property'>" . $events[$i]->lat . " " . $events[$i]->lng . "</a>" .
+        //     "</div>" .
+        //     "<div class='event-creator'>" . $user->name . " " . $user->surname . "</div>" .
+        //     "<button class='button event-button' onclick='makeRequest(" . $id . "," . $_SESSION["userID"] . ")'>Request</button>" .
+        //     "</div>";
+        // //$ris = $ris . "<div>" . $activity . $user->name. "</div>";
+    }
+    echo $ris;
+
+?>
+
+console.log(map);
+</script>
 </html>
