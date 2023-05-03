@@ -12,7 +12,7 @@ class UserPreference{
         if ($this->id == null) {
             $conn = dbConnect();
 
-            $query = "INSERT INTO userPreferences(user_id, activity_id) " .
+            $query = "INSERT INTO user_preferences(user_id, activity_id) " .
                 "VALUES ('$this->user_id', '$this->activity_id') ";
 
             $result = $conn->query($query);
@@ -21,10 +21,10 @@ class UserPreference{
         }
     }
 
-    public static function loadUserPreferences(){
+    public static function loadUserPreferences($user_id){
             $conn = dbConnect();
 
-            $result = $conn->query("SELECT * FROM userPreferences");
+            $result = $conn->query("SELECT * FROM user_preferences WHERE user_id = $user_id");
 
             $res = array();
 

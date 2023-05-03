@@ -117,3 +117,54 @@ function handleRequest(request_id, user_id, action){
         alert("Refused");
     }
 }
+
+async function addPreferences(id) {
+    var input = document.getElementsByName("sport[]");
+    var ris = [];
+    for (var i = 0; i < input.length; i++) {
+      if (input[i].checked) {
+        ris.push(input[i].value);
+      }
+    }
+    try {
+      console.log(`Ultimo ID utente inserito: ${id}`);
+    } catch (error) {
+      console.error(error);
+    }
+  
+    for (var i = 0; i < ris.length; i++) {
+      let formData = new FormData();
+      formData.append("activity", ris[i]);
+      formData.append("user", id);
+      let xhttp = new XMLHttpRequest();
+      xhttp.open("POST", "../api/insert_user_preferences.php");
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          if (this.responseText == "1") {
+            console.log("Inserted");
+          } else {
+            console.log(this.responseText);
+          }
+        }
+      };
+      xhttp.send(formData);
+      console.log(ris);
+    }
+  }
+  
+  function logoutUser(){
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "../api/logout_user.php");
+  
+    xhttp.onreadystatechange = async function () {
+      if (this.readyState == 4 && this.status == 200) {
+        if (this.responseText == "1") {
+            location.reload();
+        } else {
+          alert("Some error occured");
+        }
+      }
+    };
+  
+    xhttp.send();
+  }

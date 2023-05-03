@@ -272,6 +272,7 @@ a {
 	height: 33%;
 	left: 10%;
 	top: 15%;
+	margin-top: 10%;
 	justify-content: center;
 }
 
@@ -363,6 +364,7 @@ a.pages:first-child {
 	text-align: center;
 	width: 100%;
 	top: 5%;
+	margin-top: 10%;
 	justify-content: center;
 }
 

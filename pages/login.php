@@ -10,8 +10,10 @@
 </head>
 
 <body>
+    <a href="nextPrev(-1)">
     <img class="logo" src="../assets/images/logo.svg" alt="logo">
-    <form id="regForm" name="regForm" action="./homepage.php">
+    </a>
+    <form id="regFormLogin" name="regForm" action="./homepage.php">
         <h1>Login</h1>
         <!-- One "tab" for each step in the form:  -->
         <div class="tab">
@@ -22,6 +24,7 @@
         </div>
         <div style="overflow:auto;">
             <div style="float:right;">
+                <button type="button" onclick="window.location.href = '../index.php'">Back</button>
                 <button type="button" id="nextBtn" onclick="login()">Submit</button>
             </div>
         </div>

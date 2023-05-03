@@ -20,7 +20,7 @@ if (!array_key_exists("email", $_SESSION)) {
 
 <body>
     <img class="logo" src="../assets/images/logo.svg" alt="logo">
-    <button class="button" id="logout-button" onclick="window.location.href = '../index.php'">Logout</button>
+    <button class="button" id="logout-button" onclick="logoutUser()">Logout</button>
 
     <?php
     require_once("../model/event.php");
@@ -93,10 +93,10 @@ if (!array_key_exists("email", $_SESSION)) {
     for ($i = 0; $i < count($requests); $i++) {
 
         $ris = $ris . "<div id='" . $requests[$i][7] . "' class='your-request-view'>" .
-        "<p class='request-notes'><br><br>" . $requests[$i][8] . "</p>" .
+            "<p class='request-notes'><br><br>" . $requests[$i][8] . "</p>" .
 
             "<p class='request-properties'>" . $requests[$i][1] . " " . $requests[$i][2] . " " . $requests[$i][3] . " " . $requests[$i][6] . " " . $requests[$i][9] . "</p>" .
-            
+
             "<p class='request-creator'>" . $requests[$i][4] . " " . $requests[$i][5] . " - " . $requests[$i][0] . "</p>" .
 
             "</div>";
@@ -161,7 +161,7 @@ if (!array_key_exists("email", $_SESSION)) {
                 <path d="M22.1667 0H5.83333C4.28681 0.00194873 2.80415 0.649083 1.71059 1.79945C0.617029 2.94982 0.0018525 4.5095 0 6.13636L0 20.8636C0.0018525 22.4905 0.617029 24.0502 1.71059 25.2006C2.80415 26.3509 4.28681 26.9981 5.83333 27H22.1667C23.7132 26.9981 25.1959 26.3509 26.2894 25.2006C27.383 24.0502 27.9981 22.4905 28 20.8636V6.13636C27.9981 4.5095 27.383 2.94982 26.2894 1.79945C25.1959 0.649083 23.7132 0.00194873 22.1667 0ZM5.83333 2.45455H22.1667C22.8652 2.45599 23.5474 2.67731 24.1254 3.09003C24.7035 3.50275 25.1508 4.08798 25.41 4.77041L16.4757 14.1701C15.8182 14.859 14.928 15.2458 14 15.2458C13.072 15.2458 12.1818 14.859 11.5243 14.1701L2.59 4.77041C2.84917 4.08798 3.29655 3.50275 3.87456 3.09003C4.45256 2.67731 5.13475 2.45599 5.83333 2.45455ZM22.1667 24.5455H5.83333C4.90508 24.5455 4.01484 24.1576 3.35846 23.4671C2.70208 22.7766 2.33333 21.8401 2.33333 20.8636V7.97727L9.87467 15.9055C10.9697 17.0545 12.4533 17.6998 14 17.6998C15.5467 17.6998 17.0303 17.0545 18.1253 15.9055L25.6667 7.97727V20.8636C25.6667 21.8401 25.2979 22.7766 24.6415 23.4671C23.9852 24.1576 23.0949 24.5455 22.1667 24.5455Z" fill="white" />
             </svg>
 
-            <a class="pages" href="#" onclick="changeScreen(3);">Request</a>
+            <a class="pages" href="#" onclick="changeScreen(3);"><br>Request</a>
         </div>
 
         <?php
@@ -187,7 +187,7 @@ if (!array_key_exists("email", $_SESSION)) {
                 <path d="M22.1667 0H5.83333C4.28681 0.00194873 2.80415 0.649083 1.71059 1.79945C0.617029 2.94982 0.0018525 4.5095 0 6.13636L0 20.8636C0.0018525 22.4905 0.617029 24.0502 1.71059 25.2006C2.80415 26.3509 4.28681 26.9981 5.83333 27H22.1667C23.7132 26.9981 25.1959 26.3509 26.2894 25.2006C27.383 24.0502 27.9981 22.4905 28 20.8636V6.13636C27.9981 4.5095 27.383 2.94982 26.2894 1.79945C25.1959 0.649083 23.7132 0.00194873 22.1667 0ZM5.83333 2.45455H22.1667C22.8652 2.45599 23.5474 2.67731 24.1254 3.09003C24.7035 3.50275 25.1508 4.08798 25.41 4.77041L16.4757 14.1701C15.8182 14.859 14.928 15.2458 14 15.2458C13.072 15.2458 12.1818 14.859 11.5243 14.1701L2.59 4.77041C2.84917 4.08798 3.29655 3.50275 3.87456 3.09003C4.45256 2.67731 5.13475 2.45599 5.83333 2.45455ZM22.1667 24.5455H5.83333C4.90508 24.5455 4.01484 24.1576 3.35846 23.4671C2.70208 22.7766 2.33333 21.8401 2.33333 20.8636V7.97727L9.87467 15.9055C10.9697 17.0545 12.4533 17.6998 14 17.6998C15.5467 17.6998 17.0303 17.0545 18.1253 15.9055L25.6667 7.97727V20.8636C25.6667 21.8401 25.2979 22.7766 24.6415 23.4671C23.9852 24.1576 23.0949 24.5455 22.1667 24.5455Z" fill="white" />
             </svg>
 
-            <a class="pages" href="#" onclick="changeScreen(4);"> Your request</a>
+            <a class="pages" href="#" onclick="changeScreen(4);"><br> Your request</a>
         </div>
 
         <?php
@@ -209,9 +209,50 @@ if (!array_key_exists("email", $_SESSION)) {
 
     <div class="profile profile-container">
         <?php
-        echo $_SESSION["userID"]
+        require_once("../model/activity.php");
+        require_once("../model/user.php");
+        $userId = $_SESSION["userID"];
+        $user = User::getUserById($userId);
+        $name = $user->name;
+        $surname = $user->surname;
+        $email = $user->email;
+        $password = $user->password;
+        $birth_date = $user->birth_date;
+        $phone = $user->phone;
+        $tax_id = $user->taxId;        
+        $loadProfile = "<h1>Il tuo profilo</h1><br>";
+        $loadProfile = $loadProfile . "<label>Nome: $name</label><br>";
+        $loadProfile = $loadProfile . "<label>Cognome:  $surname <br>";
+        $loadProfile = $loadProfile . "<label>Email:  $email <br>";
+        $loadProfile = $loadProfile . "<label>Birth date:  $birth_date <br>";
+        $loadProfile = $loadProfile . "<label>Phone:  $phone <br>";
+        $loadProfile = $loadProfile . "<label>Tax id:  $tax_id <br>";
+
+
+        // $loadProfile = $loadProfile . "<label>Password: </label><input type='text' id='password' value='" . $password . "'><br>";
+        // $loadProfile = $loadProfile . "<button type='button' id='prova' onclick='updateProfile(" . $userId . ")'>Aggiorna</button>";
+        echo $loadProfile;
+
+        $activities = Activity::loadActivities();
+        $loadActivities = "<h1>Aggiungi Attività</h1><br>";
+        for ($i = 0; $i < count($activities); $i++) {
+            $name = $activities[$i]->name;
+            $id = $activities[$i]->id;
+            $loadActivities = $loadActivities . "<label><input type='checkbox' name='sport[]' value='" . $id . "'>" . $name . "</label>";
+        }
+        $loadActivities = $loadActivities . "<button type='button' id='prova' onclick='addPreferences( " . $userId . ")'>Aggiungi ai preferiti</button>";
+        echo $loadActivities;
+
+        require_once("../model/user_preferences.php");
+        $requests = UserPreference::loadUserPreferences($userId);
+        $loadUserPreferences = "<h1>Le attività preferite</h1><br>";
+        for ($i =  0; $i < count($requests); $i++) {
+            $activity = Activity::getActivitiesById($requests[$i]->activity_id);
+            $loadUserPreferences = $loadUserPreferences . "<div id='" . $i . "' class='your-activities'>" .
+                "<p class='name-your_activities'>" . $activity->name . " </p></div>";
+        }
+        echo $loadUserPreferences;
         ?>
-        <h1></h1>
     </div>
 
 
