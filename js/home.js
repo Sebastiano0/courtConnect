@@ -250,9 +250,15 @@ function createInfoWindowContent(event) {
   content.appendChild(dateTime);
 
   const learnMore = document.createElement("p");
-  learnMore.innerHTML = '<a href="#" onclick="openDetailsPage(\'' + event+ '\', \'' + sportName + '\', \'' + formattedDateTime + '\')">Scopri di più</a>';
+  const link = document.createElement("a");
+  link.href = "#";
+  link.innerHTML = "Scopri di più";
+  link.addEventListener("click", function() {
+    openDetailsPage(event, sportName, formattedDateTime);
+  });
+  learnMore.appendChild(link);
   content.appendChild(learnMore);
-
+  
   return content;
 }
 
