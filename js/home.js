@@ -250,7 +250,7 @@ function createInfoWindowContent(event) {
   content.appendChild(dateTime);
 
   const learnMore = document.createElement("p");
-  learnMore.innerHTML = '<a href="#" onclick="openDetailsPage(\'' + event.id+ '\', \'' + sportName + '\', \'' + formattedDateTime + '\')">Scopri di più</a>';
+  learnMore.innerHTML = '<a href="#" onclick="openDetailsPage(\'' + event+ '\', \'' + sportName + '\', \'' + formattedDateTime + '\')">Scopri di più</a>';
   content.appendChild(learnMore);
 
   return content;
@@ -274,7 +274,7 @@ function openDetailsPage(event, sportName, formattedDateTime) {
   console.log(event);
   //TODO get event info from db
   const info = document.createElement("div");
-  info.innerHTML = "<strong>" + event + "</strong><br>" +
+  info.innerHTML = "<strong>" + event.notes + "</strong><br>" +
                    "Date: " + formattedDateTime + "<br>" +
                    "Sport: " + sportName + "<br>" +
                    "Creator: " + event.creator_id + "<br>" +
