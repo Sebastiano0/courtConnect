@@ -28,6 +28,21 @@
                 <input type="text" placeholder="Fiscal code..." oninput="this.className = ''" name="fcode">
                 <p>City of residence</p>
                 <input placeholder="Address..." oninput="this.className = ''" name="address">
+                <p for="cars">Select a gender:</p>
+                <select name="cars" id="cars">
+                    <?php
+                    require_once(__DIR__ . "/../model/gender.php");
+                    $genders = Gender::loadGenders();
+                    $ris = "";
+                    for ($i = 0; $i < count($genders); $i++) {
+                        $gender = $genders[$i]->gender;
+                        $id = $genders[$i]->id;
+                        $ris = $ris . "<option value=" . $gender . ">" . $gender . "</option>";
+                    }
+                    echo $ris;
+
+                    ?>
+                </select>
             </div>
 
         </div>

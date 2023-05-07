@@ -458,6 +458,5 @@ function login() {
       }
     }
   };
-
   xhttp.send(formData);
 }

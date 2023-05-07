@@ -17,10 +17,10 @@ if (array_key_exists("userID", $_SESSION)) {
 </head>
 <body>
     <img class="logo" src="assets/images/logo.svg" alt="logo">
+    <p id="slogan">Connect with people and challenge them at your favourite sports.</p >
     <h1 id="title">Court Connect</h1>
     <!-- <div>banjo</div> -->
     <button class="access-button" id="login-button" onclick="window.location.href = './pages/login.php'">Login</button>
     <button class="access-button" id="signup-button" onclick="window.location.href = './pages/signup.php'">SignUp</button>
-    <p  id="slogan">Connect with people and challenge them at your favourite sports.</p >
 </body>
 </html>
