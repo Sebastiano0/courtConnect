@@ -37,7 +37,7 @@ class Event
     {
         $conn = dbConnect();
 
-        $result = $conn->query("SELECT * FROM events WHERE creator_id != $id");
+        $result = $conn->query("SELECT * FROM events WHERE creator_id != $id AND date >= CURDATE() ");
         $res = array();
 
         while ($row = $result->fetch_assoc()) {

@@ -20,8 +20,32 @@ if (!array_key_exists("email", $_SESSION)) {
 </head>
 
 <body onload="initMap()">
-    <img class="logo" src="../assets/images/logo.svg" alt="logo">
-    <button class="button" id="logout-button" onclick="logoutUser()">Logout</button>
+
+    <section class="navigation">
+        <div class="nav-container">
+            <div class="brand">
+                <img class="logo" src="../assets/images/logo.svg" alt="logo">
+
+            </div>
+            <div class="brand">
+                <a>Court Connect</a>
+            </div>
+            <nav>
+                <div class="nav-mobile"><a id="nav-toggle" href="#!"><span></span></a></div>
+                <ul class="nav-list">
+                    <li>
+                        <div href="#!">Home</div>
+                    </li>
+                    <li>
+                        <div href="#!">Profile</div>
+                    </li>
+                    <li>
+                        <div href="#!">Requests</div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
     <?php
     echo '<div id="event"></div>';
     //load events as marker to the map
@@ -48,8 +72,8 @@ if (!array_key_exists("email", $_SESSION)) {
             "<p>(" . $activity->name . ", age " .  $event->min_age . "-" . $event->max_age . " " . $event->date . " " . $event->hour . " " . $event->lat . " " . $event->lat . " " . $lvl->name . ")</p>" .
 
 
-            "<button id='acceptbutton' onclick='handleRequest(" . $id . "," . $_SESSION["userID"] . ", 1)'>Accept</button>" .
-            "<button id='refusebutton' onclick='handleRequest(" . $id . "," . $_SESSION["userID"] . ", 3)'>Refuse</button>" .
+            "<button id='acceptbutton' onclick='handleRequest(" . $id . ", 1)'>Accept</button>" .
+            "<button id='refusebutton' onclick='handleRequest(" . $id . ", 3)'>Refuse</button>" .
             "</div></div>";
     }
     echo $ris;
@@ -189,7 +213,7 @@ if (!array_key_exists("email", $_SESSION)) {
         $password = $user->password;
         $birth_date = $user->birth_date;
         $phone = $user->phone;
-        $tax_id = $user->taxId;        
+        $tax_id = $user->taxId;
         $loadProfile = "<h1>Il tuo profilo</h1><br>";
         $loadProfile = $loadProfile . "<label>Nome: $name</label><br>";
         $loadProfile = $loadProfile . "<label>Cognome:  $surname <br>";
@@ -223,7 +247,9 @@ if (!array_key_exists("email", $_SESSION)) {
         }
         echo $loadUserPreferences;
         ?>
+        <button class="button" id="logout-button" onclick="logoutUser()">Logout</button>
     </div>
+
 
 
 </body>
@@ -285,8 +311,39 @@ if (!array_key_exists("email", $_SESSION)) {
     document.body.appendChild(r_container);
     document.body.appendChild(y_r_container);
 </script>
-<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
-        ({key: "AIzaSyCEIyEKkspLepmlsDKS_q5xlA7tPVnoY6U", v: "weekly"});</script>
-
+<script>
+    (g => {
+        var h, a, k, p = "The Google Maps JavaScript API",
+            c = "google",
+            l = "importLibrary",
+            q = "__ib__",
+            m = document,
+            b = window;
+        b = b[c] || (b[c] = {});
+        var d = b.maps || (b.maps = {}),
+            r = new Set,
+            e = new URLSearchParams,
+            u = () => h || (h = new Promise(async (f, n) => {
+                await (a = m.createElement("script"));
+                e.set("libraries", [...r] + "");
+                for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]);
+                e.set("callback", c + ".maps." + q);
+                a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+                d[q] = f;
+                a.onerror = () => h = n(Error(p + " could not load."));
+                a.nonce = m.querySelector("script[nonce]")?.nonce || "";
+                m.head.append(a)
+            }));
+        d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n))
+    })
+    ({
+        key: "AIzaSyCEIyEKkspLepmlsDKS_q5xlA7tPVnoY6U",
+        v: "weekly"
+    });
+</script>
+<script type="text/javascript">
+    var userID = "<?= $_SESSION["userID"] ?>";
+</script>
 <script type="text/javascript" src="../js/home.js"></script>
+
 </html>

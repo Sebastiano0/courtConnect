@@ -20,20 +20,18 @@ document.querySelector('.profile').style.display = "none";
 let pagesLink = [home, profile, settings, request, your_request];
 let pagesIcon = [homeIcon, profileIcon, settingsIcon, requestIcon, your_requestIcon];
 
-function makeRequest(event, user_id) {
-  console.log(event);
-  console.log(user_id);
-
+function makeRequest(event) {
   let formData = new FormData();
   formData.append("event_id", event);
-  formData.append("user_id", user_id);
+  formData.append("user_id", userID);
   formData.append("state", 1);
 
   let xhttp = new XMLHttpRequest();
   xhttp.open("POST", "../api/insert_request.php");
   xhttp.onreadystatechange = async function () {
     if (this.readyState == 4 && this.status == 200) {
-      alert("Request sent")
+      showSnackbar("Request sent");
+
       if (this.responseText == "1") {
       } else {
         console.log(this.responseText);
@@ -90,7 +88,7 @@ function changeScreen(button) {
 
 }
 
-function handleRequest(request_id, user_id, action) {
+function handleRequest(request_id, action) {
   let formData = new FormData();
   formData.append("id", request_id);
   formData.append("new_state", action);
@@ -111,12 +109,27 @@ function handleRequest(request_id, user_id, action) {
   xhttp.send(formData);
 
   if (action == 2) {
-    alert("Accepted");
+    showSnackbar("Request accepted");
+
   } else {
 
-    alert("Refused");
+    showSnackbar("Request declined");
   }
 }
+
+
+function showSnackbar(text) {
+  var snackbar = document.createElement("div");
+  snackbar.id = "snackbar";
+  snackbar.innerHTML = text;
+  document.body.appendChild(snackbar);
+  snackbar.className = "show";
+  setTimeout(function(){ 
+    snackbar.className = snackbar.className.replace("show", ""); 
+    document.body.removeChild(snackbar);
+  }, 3000);
+}
+
 
 async function addPreferences(id) {
   var input = document.getElementsByName("sport[]");
@@ -198,7 +211,8 @@ async function initMap() {
 
   // Make an XMLHttpRequest to fetch data from the backend
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", "../api/load_events.php");
+  console.log(userID);
+  xhr.open("GET", "../api/load_events.php?id=" + userID);
   xhr.onload = function () {
     if (xhr.status === 200) {
       const events = JSON.parse(xhr.responseText);
@@ -234,8 +248,7 @@ function attachMarkerClickListener(marker, event) {
 
 function createInfoWindowContent(event) {
   const content = document.createElement("div");
-  const sportName =  getSport(event.sport);
-  console.log(event);
+  const sportName = getSport(event.sport);
   const sport = document.createElement("p");
   sport.innerHTML = "<strong>" + sportName + "</strong>";
   content.appendChild(sport);
@@ -253,12 +266,12 @@ function createInfoWindowContent(event) {
   const link = document.createElement("a");
   link.href = "#";
   link.innerHTML = "Scopri di più";
-  link.addEventListener("click", function() {
+  link.addEventListener("click", function () {
     openDetailsPage(event, sportName, formattedDateTime);
   });
   learnMore.appendChild(link);
   content.appendChild(learnMore);
-  
+
   return content;
 }
 
@@ -275,42 +288,66 @@ function formatDateTime(date, hour) {
   return formattedHour + " " + formattedDate;
 }
 
-function openDetailsPage(event, sportName, formattedDateTime) {
+async function openDetailsPage(event, sportName, formattedDateTime) {
   // Create a div with the info
-  console.log(event);
+  address = await getLocationName(event.lat, event.lng);
+  creator = await getCreatorName(event.creator_id);
+  level = await getLevelName(event.required_level);
   //TODO get event info from db
   const info = document.createElement("div");
   info.innerHTML = "<strong>" + event.notes + "</strong><br>" +
-                   "Date: " + formattedDateTime + "<br>" +
-                   "Sport: " + sportName + "<br>" +
-                   "Creator: " + event.creator_id + "<br>" +
-                   "Required Level: " + event.required_level + "<br>" +
-                  //  "Latitude: " + event.$lat + "<br>" +
-                  //  "Longitude: " + event.$lng + "<br>" +
-                  //convert lng and lat in position
-                    "Position: " + event.lat + " " + event.lng + "<br>" +
+    "Date: " + formattedDateTime + "<br>" +
+    "Sport: " + sportName + "<br>" +
+    "Creator: " + creator + "<br>" +
+    "Required Level: " + level + "<br>" +
+    "Position: " + address + "<br>" +
+    "Age: " + event.min_age + "-" + event.max_age + "<br>"
+    + "<button onclick='makeRequest(" + event.id + ")'>Join</button>";
 
-                   "Maximum Age: " + event.max_age + "<br>" +
-                   "Minimum Age: " + event.min_age + "<br>";
-  
   // Append the info div to the document body
   document.body.appendChild(info);
 }
 
+async function getLocationName(lat, lng) {
+  let address = "";
+  const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=AIzaSyCEIyEKkspLepmlsDKS_q5xlA7tPVnoY6U');
+  const data = await response.json(); //extract JSON from the http response
+  address = data.results[0].formatted_address;
+  return address;
+}
+
+getCreatorName = async (creator_id) => {
+  let creator = "";
+  const response = await fetch('../api/load_user_by_id.php?id=' + creator_id);
+  const data = await response.json(); //extract JSON from the http response
+  creator = data.name + " " + data.surname;
+  return creator;
+}
+
+getLevelName = async (level_id) => {
+  let level = "";
+  const response = await fetch('../api/load_level_by_id.php?id=' + level_id);
+  const data = await response.json(); //extract JSON from the http response
+  level = data.name;
+  console.log(level);
+  return level;
+}
+
 function getSport(sportID) {
   let sport = "";
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", '../api/load_activity_by_id.php?id=' + sportID, false);
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", '../api/load_activity_by_id.php?id=' + sportID, false);
 
-    xhr.send();
+  xhr.send();
 
-    if (xhr.status === 200) {
-      const response = JSON.parse(xhr.responseText);
-      sport = response.name;
-    } else {
-      console.log(xhr.status);
-    }
+  if (xhr.status === 200) {
+    const response = JSON.parse(xhr.responseText);
+    sport = response.name;
+  } else {
+    console.log(xhr.status);
+  }
 
-    return sport;  }
+  return sport;
+}
 
 initMap();
